@@ -1,0 +1,692 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Kube Rest API</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="c41572b8-0e3b-4da6-98c6-3d1c3e46b10e" class="page sans"><header><h1 class="page-title">Kube Rest API</h1><p class="page-description"></p></header><div class="page-body"><ul id="2802964a-86ab-4fcc-946b-efc2efc09745" class="bulleted-list"><li style="list-style-type:disc">All resources within K8s are grouped into different API groups. <mark class="highlight-yellow_background">To find which API group a k8s resource belongs to run </mark><code><mark class="highlight-yellow_background">k explain &lt;resource&gt;</mark></code><mark class="highlight-yellow_background">.</mark></li></ul><ul id="04bcae0e-cddd-4c5d-bf86-bc101c154f85" class="bulleted-list"><li style="list-style-type:disc">The <code>kube-apiserver</code> is available at <code>https://kube-master:6443</code> </li></ul><h1 id="03614782-ae30-4815-a974-764f4bc545e2" class="">API Groups</h1><ul id="74f42d77-b697-4892-8909-68962d551a49" class="bulleted-list"><li style="list-style-type:disc"><code>/version</code> - to view the cluster version</li></ul><ul id="88a49dec-9a2d-4e1c-8aa3-e0a59fd7f4fd" class="bulleted-list"><li style="list-style-type:disc"><code>/metrics</code> - to get cluster metrics</li></ul><ul id="8bc7ab9c-fbc4-4703-b73d-68333a03cb1c" class="bulleted-list"><li style="list-style-type:disc"><code>/healthz</code> - to monitor the cluster health</li></ul><ul id="52f945e5-2307-48ac-8cac-62093353e3a9" class="bulleted-list"><li style="list-style-type:disc"><code>/logs</code> - to integrate with 3rd party logging applications</li></ul><ul id="ff349069-0b15-4ce0-bc01-b38b2fd51a78" class="bulleted-list"><li style="list-style-type:disc"><code>/api</code> - used to interact with the cluster (<strong>core group</strong>)</li></ul><ul id="d67b4397-eea8-4d2e-b011-2ed66cd85b65" class="bulleted-list"><li style="list-style-type:disc"><code>/apis</code> - used to interact with the cluster (<strong>named group</strong>)</li></ul><h2 id="d91207e4-920a-4eb9-b6ca-1a815f36186e" class="">Core API group (<code>/api</code>)</h2><p id="d2324a34-e44a-4385-82e5-ae0ff46ab19d" class="">All the core functionalities exist in this API group. All the resources (functionalities) are scattered in this group.</p><figure id="d0e591d4-2658-41d8-a0a9-630f2e511960" class="image" style="text-align:left"><a href="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled.png"><img style="width:432px" src="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled.png"/></a></figure><h2 id="435d8866-9588-45d0-86ae-88a44409ecf2" class="">Named API group (<code>/apis</code>)</h2><p id="87b1a17e-46c5-4adf-b4a2-d2a82e88cf31" class="">The named API group is organized into subgroups (resources) based on the category. The newer features in k8s and going forward all the incoming features will be made available in this group. Several actions (verbs) can be performed on the resources.</p><figure id="85c3d1ef-6f2b-4e43-84d8-c84947c4e02b" class="image"><a href="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%201.png"><img style="width:2072px" src="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%201.png"/></a></figure><h1 id="ef73793a-f3d2-48f7-b867-0429dae993bf" class="">Authenticating to Kube-ApiServer</h1><p id="2232e61b-ea73-4729-a4d5-b66a9f8dd24f" class="">Most of the API endpoint will require you to authenticate to the <code>kube-apiserver</code>. This means passing the login credentials in the curl command. Alternatively, you can setup a proxy client to by running the command <code>kubectl proxy</code> which will automatically proxy your API requests and add the credentials from the <a href="KubeConfig%20723452923e9f4fd49d2931f9730ec83a.html">KubeConfig</a>  file on your local system. So, you no longer need to pass the authentication details in every curl command.</p><figure id="69dd1509-15fe-477f-9e7f-c182b81474b4" class="image"><a href="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%202.png"><img style="width:1994px" src="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%202.png"/></a></figure><h3 id="fa5d4d56-dea7-433a-aa08-9f8536b5b11e" class="">Examples</h3><ul id="04010b19-53b5-4043-96c5-2c82ceafeb45" class="bulleted-list"><li style="list-style-type:disc">Get version - <code>curl https://kube-master:6443/version</code></li></ul><ul id="89d1b104-453d-44d4-9a7f-5f6e442dfdfa" class="bulleted-list"><li style="list-style-type:disc">List pods - <code>curl https://kube-master:6443/api/v1/pods</code></li></ul><h1 id="abf7b8c7-ce06-4d4f-b592-0571ce184266" class="">API Versions</h1><figure id="f84c14fd-e82f-4889-a5a8-20fd39e919a4" class="image"><a href="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%203.png"><img style="width:1816px" src="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%203.png"/></a></figure><p id="e8648852-7e2b-427c-a913-c3793891d322" class="">An API group can have multiple versions supported at the same time. Either of these API versions can be used to create a resource. But, when you query the resource it checks for it in the <strong>Preferred API version</strong>. Also, when a resource is created in an API version other than the <strong>Storage API version</strong>, it is converted to the storage API version before storing in the <code>etcd</code> database. Usually, the stable API version is the Preferred and Storage API version.</p><figure id="ff367fd9-b9a0-46e0-9a3a-7ead6632dbf3" class="image"><a href="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%204.png"><img style="width:1858px" src="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%204.png"/></a></figure><p id="78c2ac05-4222-4c4d-8152-312b5f0ca289" class="">Since alpha versions are not enabled by default, we can enable them by editing the <code>kube-apiserver</code>&#x27;s config.</p><figure id="a361bbe2-13e9-4173-b290-f663b4b1a193" class="image"><a href="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%205.png"><img style="width:1412px" src="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%205.png"/></a></figure><h3 id="cf4257fa-2faa-4748-8cac-c6948d3b8e57" class="">C<strong>heck the preferred version for an API</strong></h3><p id="52015803-b36f-4c2f-a0b9-a836bac567ff" class="">Steps:</p><ul id="7d7c25ea-996b-4987-aa6c-16f7476cf397" class="bulleted-list"><li style="list-style-type:disc">Setup <code>kubectl proxy</code> on port <code>8001</code> - <code>k proxy 8001 &amp;</code></li></ul><ul id="5bb304d5-5b29-492d-931f-200cfd98be64" class="bulleted-list"><li style="list-style-type:disc">Send a GET request to the API - <code>curl localhost:8001/apis/authorization.k8s.io</code></li></ul><p id="e0a7b062-a18f-4f6b-89a2-e554f21cfa77" class="">The output will be like this:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="a6cf35f9-fe0c-4231-91f9-bfad7e13b7e3" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;kind&quot;: &quot;APIGroup&quot;,
+  &quot;apiVersion&quot;: &quot;v1&quot;,
+  &quot;name&quot;: &quot;authorization.k8s.io&quot;,
+  &quot;versions&quot;: [
+    {
+      &quot;groupVersion&quot;: &quot;authorization.k8s.io/v1&quot;,
+      &quot;version&quot;: &quot;v1&quot;
+    }
+  ],
+  &quot;preferredVersion&quot;: {
+    &quot;groupVersion&quot;: &quot;authorization.k8s.io/v1&quot;,
+    &quot;version&quot;: &quot;v1&quot;
+  }
+}</code></pre><h1 id="94a8baa5-20c7-4a61-9357-91e7eb1f9688" class="">API Deprecation Policy Rules</h1><h3 id="29ed7611-4145-4f55-b600-c9149ce0d06e" class=""><strong>Rule 1</strong></h3><blockquote id="4a4fbd45-15ec-49a5-ba87-e7c40bb37a7a" class="">API elements may only be removed by incrementing the version of the API group. </blockquote><p id="143191ba-62f2-4ecf-a5ce-d467144f8abd" class="">In the example below, the resource <code>webinar</code> can only be removed by incrementing the version from <code>v1alpha1</code> to <code>v1alpha2</code>. But both the versions will be supported because otherwise, all the usage of <code>v1alpha1</code> will have to be incremented. But, the preferred/supported version can be <code>v1alpha2</code>.</p><figure id="5d25d53e-4829-4a0c-92be-f549df4802b6" class="image"><a href="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%206.png"><img style="width:1740px" src="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%206.png"/></a></figure><h3 id="58a68e4f-da60-4119-95e8-c5682ff82c9a" class="">Rule 2</h3><blockquote id="59837789-b003-4585-b41c-e0af04545ce0" class="">API objects must be able to round-trip between API versions in a given release without information loss, with the exception of whole REST resources that do not exist in some versions.</blockquote><p id="0eb9c973-21ad-45f5-a778-4328ffad9170" class="">In the example below, <code>v1alpha1</code> does not have <code>duration</code> field but <code>v1alpha2</code> does. So we need to add the field <code>duration</code> to <code>v1alpha1</code> so that when downgrading from <code>v1alpha2</code> to <code>v1alpha1</code>, both the <code>v1alpha1</code> versions are the same.</p><figure id="bf1d81b4-c34c-4395-baec-bf7f78c3e7f2" class="image"><a href="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%207.png"><img style="width:2048px" src="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%207.png"/></a></figure><figure id="7078be24-9cd2-4685-a389-b914dac2a080" class="image"><a href="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%208.png"><img style="width:2050px" src="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%208.png"/></a></figure><h3 id="c6c60e57-ca6d-4ee0-8733-e88c33e1e8f4" class="">Rule 3</h3><blockquote id="f463af92-b4bd-4cdd-92d0-680f8239e3dd" class="">An API version in a given track may not be deprecated until a new API version at least as stable is released.</blockquote><div id="cbace6e5-e2ac-42c1-9870-2332da925616" class="column-list"><div id="872e908b-63ad-43c6-84d3-1b1dce972d3b" style="width:50%" class="column"><p id="5265f630-faa4-4df3-b403-d7bdb55428ce" class="">If <code>v2alpha1</code> is released, <code>v1</code> will not be deprecated until <code>v2</code> goes through its complete lifecycle and becomes a stable release.</p></div><div id="a6b3f891-1c9d-4c71-83fb-0dfc7ab60acd" style="width:50%" class="column"><figure id="16a52dfa-f8d8-4c92-ba20-131da0dfbda5" class="image"><a href="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%209.png"><img style="width:726px" src="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%209.png"/></a></figure></div></div><h3 id="9dfc7b45-7e44-4006-8830-0268c85aa4f9" class="">Rule 4a</h3><blockquote id="32488085-c4d1-4727-8398-d15bb678ee13" class="">Other than the most recent API versions in each track, older API versions must be supported after their announced deprecation for a duration of no less than:<br/><br/><strong>GA</strong>: 12 months or 3 releases (whichever is longer)<br/><br/><strong>Beta</strong>: 9 months or 3 releases (whichever is longer)<br/><br/><strong>Alpha</strong>: 0 releases</blockquote><div id="c0583ffd-7973-43a1-a9c1-39faa8538da3" class="column-list"><div id="4ae621a9-2c71-42f7-983f-04314d436996" style="width:50%" class="column"><p id="64164016-c506-4349-b6c6-48fe23becc27" class="">Deprecated (old) alpha versions need not be supported in the next releases.</p></div><div id="7dc681fb-85cf-406c-9f05-4c969bc352e9" style="width:50%" class="column"><figure id="660042bc-0181-4677-bf44-c06c239d7f43" class="image"><a href="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%2010.png"><img style="width:384px" src="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%2010.png"/></a></figure></div></div><div id="f3b15fa3-c6ad-487c-afaf-230db30ddf0e" class="column-list"><div id="a35e4728-1aea-439b-a349-2616c1d3e504" style="width:50%" class="column"><p id="bc7ff2d4-126c-4adb-8dc5-57fa6d5efab5" class="">Deprecated beta versions only need to be supported till 3 releases (see <code>v1beta1</code>). Also according to Rule 4b, <code>v1</code> becomes the preferred version only after the next release and not in its first release.</p></div><div id="6227805c-8ae1-4688-ae3d-a0fdec959115" style="width:50%" class="column"><figure id="2e580da8-464c-4524-930e-78ef9725ee39" class="image"><a href="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%2011.png"><img style="width:720px" src="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%2011.png"/></a></figure></div></div><h3 id="30553c36-d6e9-4e80-ae36-51779ddc9a3a" class="">Rule 4b</h3><blockquote id="b052dea0-e903-4656-ba7f-c9361aed97b2" class="">The &quot;preferred&quot; API version and the &quot;storage version&quot; for a given group may not advance until after a release has been made that supports both the new version and the previous version</blockquote><div id="7e25e204-cfaf-4d97-809a-6cf5e5d0eb32" class="column-list"><div id="c9549d20-f72d-405e-989b-0e9903683f72" style="width:50%" class="column"><p id="48ab1307-98d8-4ab4-8fa0-9aa84ef1f24e" class="">When <code>v1beta2</code> is released, <code>v1beta1</code> is still the preferred version (between the lines) even though it is deprecated. Only in the next release will <code>v1beta2</code> become the preferred version.</p></div><div id="f6a1c5ef-8aa7-466b-96a6-c74db1887b74" style="width:50%" class="column"><figure id="9150c436-bc9b-4f0c-bff8-b213cb07cd03" class="image"><a href="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%2012.png"><img style="width:816px" src="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%2012.png"/></a></figure></div></div><h3 id="2de8746e-6293-4b4b-95c9-83e9b2818322" class="">Upgrading the version of a K8s manifest</h3><p id="afa1e91d-a84f-41e5-a69c-e64c3d923db4" class=""><code>kubectl convert -f nginx-old.yaml --output-version apps/v1 &gt; nginx-new.yaml</code>   - this requires the installation of <code>kubectl convert</code> tool from K8s.</p><figure id="88290a20-d605-497c-b3d7-ad12ff7d907c" class="image"><a href="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%2013.png"><img style="width:1466px" src="Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e/Untitled%2013.png"/></a></figure><p id="7f9a896c-6119-448c-adce-2180da437581" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

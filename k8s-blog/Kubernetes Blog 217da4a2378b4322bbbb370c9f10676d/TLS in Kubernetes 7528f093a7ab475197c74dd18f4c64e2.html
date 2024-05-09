@@ -1,0 +1,704 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>TLS in Kubernetes</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="7528f093-a7ab-4751-97c7-4dd18f4c64e2" class="page sans"><header><h1 class="page-title">TLS in Kubernetes</h1><p class="page-description"></p></header><div class="page-body"><nav id="4915153a-3d63-496c-b2f0-fc9d260502b9" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4c5c7da1-bf50-4a91-8ec5-86745db0ba20">Intro</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4b62ef3b-2ef6-4ccd-bb58-9b34772e94e2">TLS Certificates</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#01a1ffc8-2131-4412-8eab-cbb0178a5090">Generating TLS Certificates</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e31718ce-21c4-439f-acd6-dcce88f9b58f">CA Certificate</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8f64c956-6ef5-489f-80e1-1ea3bf0e8e31">Client Certificate for Admin User</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ad668bd3-99f4-4bf0-a1f0-82a31e2353f9">Client Certificate for K8s Components</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#abfd8ac8-fd85-4e99-8e1b-fc28547c6abd">Server Certificate for K8s Components</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8fb7eac6-149a-467c-9588-a0450b0db666">Using Client Certificates</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f7f71a83-529d-4e0c-a776-11befd39ab32">View certificate details</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#63f2cdb5-3e6a-48f5-9515-02568417c37f">Certificates API</a></div></nav><h2 id="4c5c7da1-bf50-4a91-8ec5-86745db0ba20" class="">Intro</h2><figure id="ff85a5a5-7999-44b6-8058-5d25b7afe138" class="image"><a href="TLS%20in%20Kubernetes%207528f093a7ab475197c74dd18f4c64e2/Untitled.png"><img style="width:2218px" src="TLS%20in%20Kubernetes%207528f093a7ab475197c74dd18f4c64e2/Untitled.png"/></a></figure><ul id="5ee60b40-8780-420b-a9b1-b532c60c97f5" class="bulleted-list"><li style="list-style-type:disc">The communication between the different nodes in the cluster, between the different components of k8s, between a user and the cluster, etc. must be encrypted using TLS.</li></ul><ul id="cb00349a-98dd-421a-bb25-d38a44fd9014" class="bulleted-list"><li style="list-style-type:disc">There must be at least one CA in the cluster for signing TLS certificates. </li></ul><ul id="fd3abff7-b552-4b0d-853c-62e7d3214c29" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">The CA private key must be stored on a secure server (CA server). Anyone who has access to it can create as many authenticated users as they want.</mark> When setting up the cluster using KubeAdmin, it is stored on the master node. So, in this case, the master node is also the CA server.</li></ul><h2 id="4b62ef3b-2ef6-4ccd-bb58-9b34772e94e2" class="">TLS Certificates</h2><figure id="5b156fbe-527e-431d-85d9-f737d6d24d6c" class="image"><a href="TLS%20in%20Kubernetes%207528f093a7ab475197c74dd18f4c64e2/Untitled%201.png"><img style="width:2928px" src="TLS%20in%20Kubernetes%207528f093a7ab475197c74dd18f4c64e2/Untitled%201.png"/></a></figure><p id="8ba43c16-35da-42e2-95ef-a4dbecd7a85a" class=""><a href="KubeAPI%20Server%203677af6b3d21410abdf1a92dd41fa3bd.html">KubeAPI Server</a>, <a href="ETCD%201440dac939804143a5ed423081669207.html">ETCD</a>, and <a href="Kubelet%20d0ad33a1374d46fea76cf7c81620b7ac.html">Kubelet</a> act like servers that are contacted by clients. So, they generate server certificates. <a href="Kube%20Scheduler%2093ebb417100e4982947e667ad0eadb5b.html">Kube Scheduler</a>, <a href="Kube%20Controller%20Manager%20f12a9cf5e3da4a6a9ff6c62a4ed0d034.html">Kube Controller Manager</a> and <a href="Kube%20Proxy%200b056a5308334b7786ee91723680e024.html">Kube Proxy</a>, contact the KubeAPI server. So, they generate client certificates. </p><p id="ddf1d21a-61b6-4a7a-8258-054ddae3fec7" class="">The KubeAPI server also contacts ETCD and Kubelet for which it can either use its server certificates or generate a client certificate for itself. Similarly, the Kubelet service also contacts the KubeAPI server for which it can generate its own client certificate or use its server certificate.</p><p id="01d6295d-0a6d-44bc-bfb1-413a2d8da161" class="">If a user has to access the cluster via the KubeAPI server, they will need to generate their own client-side certificates.</p><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="072af07b-68d4-4be6-b29a-ef894b3e7b7e"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Whenever a server and client communicate, they both need a copy of the CA root certificate to verify each other’s certificate as every other certificate is signed by the CA.</div></figure><h2 id="01a1ffc8-2131-4412-8eab-cbb0178a5090" class="">Generating TLS Certificates</h2><p id="69acbe84-4d68-4353-953f-a1cc5f82e568" class="">When setting up the cluster from scratch, you need to generate and configure each certificate manually. <mark class="highlight-yellow_background">When setting up the cluster using </mark><mark class="highlight-yellow_background"><strong>KubeAdmin</strong></mark><mark class="highlight-yellow_background">, it automatically generates and configures the certificates. All the certificates are present at </mark><code><mark class="highlight-yellow_background">/etc/kubernetes/pki</mark></code><mark class="highlight-yellow_background">.</mark></p><h3 id="e31718ce-21c4-439f-acd6-dcce88f9b58f" class="">CA Certificate</h3><ul id="39ff1757-4eca-479d-a2b6-5ac7c30389de" class="bulleted-list"><li style="list-style-type:disc">Generate CA’s private key - <code>openssl genrsa -out ca.key 2048</code></li></ul><ul id="f6ee8e7c-5a72-401f-bf6b-b4f99ae09858" class="bulleted-list"><li style="list-style-type:disc">Generate a CSR (certificate without the signature) using the private key - <code>openssl req -new -key ca.key -subj &quot;/CN=KUBERNETES-CA&quot; -out ca.csr</code> where <code>/CN</code> is the common name field (which component in k8s we are creating certificates for). The command will output a <code>ca.csr</code> file.</li></ul><ul id="ec339a7e-0ee9-4206-b6a0-5930cf84a9f3" class="bulleted-list"><li style="list-style-type:disc">Sign the CA’s CSR using its own private key generated in the first step (self-signing) - <code>openssl x509 -req -in ca.csr -signkey ca.key -out ca.crt</code>. The command will output the self-signed CA certificate <code>ca.crt</code>. </li></ul><p id="53d00b93-6b7e-4203-a532-c749cebd1629" class="">Now that we have the CA private key and the <code>ca.crt</code> certificate. They both can be used together to sign other CSRs in the cluster.</p><h3 id="8f64c956-6ef5-489f-80e1-1ea3bf0e8e31" class="">Client Certificate for Admin User</h3><ul id="d918fbbb-bce8-4190-9887-a9fa8f6898ab" class="bulleted-list"><li style="list-style-type:disc">Generate admin user’s private key - <code>openssl genrsa -out admin.key 2048</code></li></ul><ul id="38db8481-6417-4731-8e2e-54a006efdee4" class="bulleted-list"><li style="list-style-type:disc">Generate a CSR for the admin user - <code>openssl req -new -key admin.key -subj &quot;/CN=kube-admin</code><mark class="highlight-blue"><code>/O=system:masters</code></mark><code>&quot; -out admin.csr</code>. <mark class="highlight-blue"><code>/O=system:masters</code></mark><mark class="highlight-blue"> </mark>adds the user to the <code>system:masters</code> group to provide them with admin privilege.</li></ul><ul id="1341366d-1f24-4223-89fe-2f3d8294ceba" class="bulleted-list"><li style="list-style-type:disc">Sign the admin’s CSR using the CA’s private key and certificate - <code>openssl x509 -req -in admin.csr -CA ca.crt -CAkey ca.key -out admin.crt</code></li></ul><h3 id="ad668bd3-99f4-4bf0-a1f0-82a31e2353f9" class="">Client Certificate for K8s Components</h3><p id="c6b723bd-cf16-4a50-a59f-7814659091fd" class="">Generating client TLS certificates for K8s components follows the same procedure. However, the common name <code>/CN</code> field must be prefixed with <code>system:</code>. The <code>/CN</code> field should be as follows for the following:</p><ul id="f7ab7499-5fe7-4d95-8ee8-c790fd22b20a" class="bulleted-list"><li style="list-style-type:disc">Kube Scheduler - <code>system:kube-scheduler</code></li></ul><ul id="21d268a9-ada8-46f8-ba39-97840fab86cb" class="bulleted-list"><li style="list-style-type:disc">Kube Controller Manager - <code>system:kube-controller-manager</code></li></ul><ul id="6cc17e0f-c5c9-4baf-94a5-0b8ba225423c" class="bulleted-list"><li style="list-style-type:disc">Kube Proxy - <code>system:kube-proxy</code></li></ul><ul id="afe89929-cd68-4713-ad0c-9e3992e5c78b" class="toggle"><li><details open=""><summary>Kubelet - <code>system:node:&lt;node-name&gt;</code></summary><p id="63ef194e-262c-4c74-ad8f-885f53e8c910" class="">The Kubelet service needs to act as a client to connect with the API server. For that, it needs to generate separate certificates for each node (<code>kubelet</code> service runs on every node). For this the certificate needs to be a part of <code>system:nodes</code> group.</p><p id="61b74925-61ba-450f-8d28-ffb38a05a401" class="">Eg. to create a CSR for node-1 - <code>openssl req -new -key node-1.key -subj &quot;/CN=system:node:node-1/O=system:nodes&quot; -out node-1.csr</code></p></details></li></ul><h3 id="abfd8ac8-fd85-4e99-8e1b-fc28547c6abd" class="">Server Certificate for K8s Components</h3><p id="c58dae19-06be-4e2f-aa4e-4841642f5f73" class="">Generating server TLS certificates for k8s components follows the same procedure. Since the servers run continuously, we need to configure the key and certificate along with the CA certificate before starting the server.</p><p id="7c4f3dec-826f-4d2e-bb94-b2d47a1323de" class="">The <code>/CN</code> field should be as follows for the following:</p><ul id="48efe95f-ced2-4c8b-949b-feface3b2254" class="toggle"><li><details open=""><summary>ETCD - <code>etcd-server</code> </summary><p id="a6e0e72e-748c-431a-a46c-c850856ca6b4" class="">The key, certificate and the CA certificate need to be configured while starting the ETCD server.</p><p id="71400589-28ad-4645-b7e0-0f03825e2b7d" class="">Peer certificates need to be configured when ETCD server has multiple instances for high availability.</p><figure id="e390dcbc-1a5a-4634-9220-474d83e8f3f6" class="image"><a href="TLS%20in%20Kubernetes%207528f093a7ab475197c74dd18f4c64e2/Untitled%202.png"><img style="width:1378px" src="TLS%20in%20Kubernetes%207528f093a7ab475197c74dd18f4c64e2/Untitled%202.png"/></a></figure></details></li></ul><ul id="d3e4e146-ac58-4339-ac82-949a956abe79" class="toggle"><li><details open=""><summary>KubeAPI Server - <code>kube-apiserver</code></summary><p id="56fd4b7b-94b4-4bcf-8e2b-376ab07bc1ca" class="">The KubeAPI server is referred to by many names. All these names along with the pod’s IP running it must be specified under the <code>alt_names</code> section of the <code>openssl.cnf</code> file, when generating the CSR.</p><p id="583fc28a-bc6c-4977-a9c9-96e69471ea81" class=""><code>openssl req -new -key apiserver. key -subj &quot;/CN=kube-apiserver&quot; -out apiserver.csr </code><mark class="highlight-blue"><code>-config openssl.cnf</code></mark></p><figure id="4669862b-fe88-47d6-b30f-46c4e9491aa4" class="image"><a href="TLS%20in%20Kubernetes%207528f093a7ab475197c74dd18f4c64e2/Untitled%203.png"><img style="width:1130px" src="TLS%20in%20Kubernetes%207528f093a7ab475197c74dd18f4c64e2/Untitled%203.png"/></a></figure><p id="c3963ad7-c648-4f4d-9423-2147358e4232" class="">The key, certificate and the CA certificate needs to be configured while starting the KubeAPI server. We also need to specify the key, certificate and the CA certificate when the KubeAPI server acts as a client to connect to the ETCD server and Kubelet service.</p><figure id="53af209d-e00e-4943-8c21-e6bf858a3117" class="image"><a href="TLS%20in%20Kubernetes%207528f093a7ab475197c74dd18f4c64e2/Untitled%204.png"><img style="width:1950px" src="TLS%20in%20Kubernetes%207528f093a7ab475197c74dd18f4c64e2/Untitled%204.png"/></a></figure></details></li></ul><ul id="f5fdc0fa-83f4-4aea-9f3c-c157c86047b4" class="toggle"><li><details open=""><summary>Kubelet - <code>&lt;node-name&gt;</code></summary><p id="934583c1-cea7-4664-84d4-4fce5302f685" class="">The kubelet service runs on every node. So, separate key-certificate pairs must be created for every node. Since the Kubelet is an HTTP server, the key and certificate must be configured before starting it.</p><figure id="ee32aa8b-d65c-4714-ab50-3500bf57f466" class="image"><a href="TLS%20in%20Kubernetes%207528f093a7ab475197c74dd18f4c64e2/Untitled%205.png"><img style="width:1142px" src="TLS%20in%20Kubernetes%207528f093a7ab475197c74dd18f4c64e2/Untitled%205.png"/></a></figure><p id="0da858ba-44d5-4419-b168-dc0fb9ae21e2" class="">
+</p></details></li></ul><h2 id="8fb7eac6-149a-467c-9588-a0450b0db666" class="">Using Client Certificates</h2><p id="23d67d90-4eb7-431c-b2dc-c815146a9a9d" class="">When making an API request to the KubeAPI server, the HTTP client (<code>curl</code> in this case) needs the admin key and certificate to authenticate the request. It also needs the CA certificate to validate the server’s certificate.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2319e5b5-bdc5-4c74-9624-fca06acdb5c0" class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">curl https://kube-apiserver:6443/api/v1/pods \
+--key admin.key \
+--cert admin.crt \
+--cacert ca.crt</code></pre><p id="507364b4-b5b5-4357-a350-0579eb36bec2" class="">Otherwise, the certificates and keys can be configured in <a href="KubeConfig%20723452923e9f4fd49d2931f9730ec83a.html">KubeConfig</a> from where <code>kubectl</code> can automatically pick it and attach it with every request.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="ecd57a84-cfa7-4dbf-be65-20c4515ba302" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">apiVersion: v1
+clusters:
+- cluster:
+		certificate-authority: ca.crt
+		server: https://kube-apiserver:6443
+	name: kubernetes
+kind: Config
+users:
+- name: kubernetes-admin
+	user:
+		client-certificate: admin.crt
+		client-key: admin.key</code></pre><h2 id="f7f71a83-529d-4e0c-a776-11befd39ab32" class="">View certificate details</h2><p id="299da321-8f0b-40ce-8061-4b5edf82c102" class="">Run the <code>openssl x509 -in certificate.crt -text -noout</code> command to view the certificate details including the subject, validity, issuer and alternative DNS names and IP addresses.</p><figure id="b523e4ba-68d4-4657-9314-962f217141de" class="image"><a href="TLS%20in%20Kubernetes%207528f093a7ab475197c74dd18f4c64e2/Untitled%206.png"><img style="width:2016px" src="TLS%20in%20Kubernetes%207528f093a7ab475197c74dd18f4c64e2/Untitled%206.png"/></a></figure><h2 id="63f2cdb5-3e6a-48f5-9515-02568417c37f" class="">Certificates API</h2><p id="b646fd86-b0ff-4d6c-8ad8-9fb7e77ca656" class="">K8s has a built in <code>certificates</code> API to easily sign and manage certificates. <mark class="highlight-yellow_background">This is handled by the </mark><mark class="highlight-yellow_background"><a href="Kube%20Controller%20Manager%20f12a9cf5e3da4a6a9ff6c62a4ed0d034.html">Kube Controller Manager</a></mark><mark class="highlight-yellow_background"> </mark>using the CA certificate and key.</p><p id="46e40769-80e9-4331-8188-abf36bce2233" class="">Let’s consider the case where a new user needs access to the cluster. She’ll first create a private key and then a CSR (<code>CN=&lt;user-name&gt;</code>) using <code>openssl</code> commands. She’ll then send the <code>.csr</code> file to the cluster admin. The admin will create a <code>CertificateSigningRequest</code> object using the base64 encoded contents of the <code>.csr</code> file (generate using <code>cat filename.csr | base64 -w 0</code>) along with the info about the <code>groups</code> and <code>usages</code>.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="26d41a2b-9ca4-43a5-9f55-6518b1c1d42a" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+metadata:
+	name: &lt;user-name&gt;
+spec:
+	signerName: kubernetes.io/kube-apiserver-client
+	groups:
+		- system:authenticated
+	usages:
+		- digital signature
+		- key encipherment
+		- server auth
+	request: &lt;base64-encoded-csr&gt;</code></pre><p id="29591228-8d06-44aa-8647-766a8147c884" class="">All the <code>CertificateSigningRequest</code> objects can be viewed by the cluster admins using <code>k get csr</code> command. Then admin can approve any CSR by running <code>k certificate approve &lt;csr-name&gt;</code>. </p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

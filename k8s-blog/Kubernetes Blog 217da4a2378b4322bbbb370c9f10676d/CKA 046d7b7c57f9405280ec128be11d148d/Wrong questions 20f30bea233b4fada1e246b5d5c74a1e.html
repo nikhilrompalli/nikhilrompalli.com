@@ -1,0 +1,861 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Wrong questions</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="20f30bea-233b-4fad-a1e2-46b5d5c74a1e" class="page sans"><header><h1 class="page-title">Wrong questions</h1><p class="page-description"></p></header><div class="page-body"><ul id="c0c810de-c2ba-41df-8c51-86296211415d" class="toggle"><li><details open=""><summary>Saving top nodes</summary><p id="bc4093fe-1378-48e7-b8a8-f1a9cac1f910" class="">Check out the metrics for all node across all clusters:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="7a40bbfc-e003-407d-b401-e4e736840be1" class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">kubectl top node --context cluster1 --no-headers | sort -nr -k2 | head -1
+cluster1-controlplane   127m   1%    703Mi   1%
+
+kubectl top node --context cluster2 --no-headers | sort -nr -k2 | head -1
+cluster2-controlplane   126m   1%    675Mi   1%
+
+kubectl top node --context cluster3 --no-headers | sort -nr -k2 | head -1
+cluster3-controlplane   577m   7%    1081Mi   1%
+
+kubectl top node --context cluster4 --no-headers | sort -nr -k2 | head -1
+cluster4-controlplane   130m   1%    679Mi   1%</code></pre><p id="10dfb990-1481-45cf-be95-9c462d9eb285" class="">Using this, find the node that uses most <code>cpu</code>. In this case, it is <code>cluster3-controlplane</code> on <code>cluster3</code>.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="9cad1e96-d149-4fb5-aa1e-060df7050c37" class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">echo cluster3,cluster3-controlplane &gt; /opt/high_cpu_node</code></pre></details></li></ul><ul id="d002aa73-99b9-4c41-8e4a-b8c4a9018b2c" class="toggle"><li><details open=""><summary>Install etcdctl</summary><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="0f828e29-f76a-4f80-aa9c-bb4b193daa38" class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">Install etcd utility:
+
+cd /tmp
+export RELEASE=$(curl -s https://api.github.com/repos/etcd-io/etcd/releases/latest | grep tag_name | cut -d &#x27;&quot;&#x27; -f 4)
+wget https://github.com/etcd-io/etcd/releases/download/${RELEASE}/etcd-${RELEASE}-linux-amd64.tar.gz
+tar xvf etcd-${RELEASE}-linux-amd64.tar.gz ; cd etcd-${RELEASE}-linux-amd64
+mv etcd etcdctl  /usr/local/bin/</code></pre></details></li></ul><ul id="340aaac3-9024-4eae-8e9c-065bb76664d2" class="toggle"><li><details open=""><summary>Network policy to make a pod accessible from a specific pod in a specific namespace</summary><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="cd19f911-01a5-4329-916a-cc89b923e8e5" class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">ingress:
+- from:
+  - namespaceSelector:
+      matchLabels:
+        kubernetes.io/metadata.name: default
+	  podSelector:
+      matchLabels:
+        app: cyan-white-cka28-trb</code></pre></details></li></ul><ul id="582a7c29-d9b0-44a3-95ea-8bd5c638ec1d" class="toggle"><li><details open=""><summary>Deployment scaling out</summary><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="6aaf4f87-526a-40c1-916b-68b72b5e58d1" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl get deployment</code></pre><p id="13bbd711-0bb6-4b42-8e76-b194d22347f1" class="">We can see <code>DESIRED</code> count for <code>pink-depl-cka14-trb</code> is <code>2</code> but the <code>CURRENT</code> count is still <code>1</code></p><p id="be8131ef-37aa-4cc2-8d8b-ca7a392676b2" class="">As we know <code>Kube Controller Manager</code> is responsible for monitoring the status of replica sets/deployments and ensuring that the desired number of PODs are available so let&#x27;s check if its running fine.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="715dc9fd-a4e2-4e9f-b7e2-00a5212bdb61" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl get pod -n kube-system</code></pre><p id="39024eee-71ab-413e-91ec-01f9e37ec062" class="">So <code>kube-controller-manager-cluster4-controlplane</code> is crashing, let&#x27;s check the events to figure what&#x27;s happening</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="50008f8e-bbb3-4b03-ae5c-ceb94670c09b" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">student-node ~ ✖ kubectl get event --field-selector involvedObject.name=kube-controller-manager-cluster4-controlplane -n kube-system
+LAST SEEN   TYPE      REASON         OBJECT                                              MESSAGE
+10m         Warning   NodeNotReady   pod/kube-controller-manager-cluster4-controlplane   Node is not ready
+3m25s       Normal    Killing        pod/kube-controller-manager-cluster4-controlplane   Stopping container kube-controller-manager
+2m18s       Normal    Pulled         pod/kube-controller-manager-cluster4-controlplane   Container image &quot;k8s.gcr.io/kube-controller-manager:v1.24.0&quot; already present on machine
+2m18s       Normal    Created        pod/kube-controller-manager-cluster4-controlplane   Created container kube-controller-manager
+2m18s       Warning   Failed         pod/kube-controller-manager-cluster4-controlplane   Error: failed to create containerd task: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: &quot;kube-controller-manage&quot;: executable file not foundin $PATH: unknown
+108s        Warning   BackOff        pod/kube-controller-manager-cluster4-controlplane   Back-off restarting failed container
+
+student-node ~ ➜</code></pre><p id="eaef4efb-c8fe-48d6-8af4-fa858a0e66b5" class="">You will see some errors as below</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="dfe7df67-a5bc-4fa0-b4f9-db049d02c441" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Warning   Failed    pod/kube-controller-manager-cluster4-controlplane   Error: failed to create containerd task: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: &quot;kube-controller-manage&quot;: executable filenot foundin $PATH: unknown</code></pre><p id="f54c7195-a73f-46ed-a716-41f72ad382a9" class="">Seems like its trying to run <code>kube-controller-manage</code> command but it is supposed to run <code>kube-controller-manager</code> commmand. So lets look into the <code>kube-controller-manager</code> manifest which is present under <code>/etc/kubernetes/manifests/kube-controller-manager.yaml</code> on <code>cluster4-controlplane</code> node. So let&#x27;s SSH into <code>cluster4-controlplane</code></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="e4832d18-78ed-468e-9698-c635f27c3e0c" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">ssh cluster4-controlplane
+vi /etc/kubernetes/manifests/kube-controller-manager.yaml</code></pre><ul id="ab4b11d2-7aa3-4a65-90fb-0d259ce94c3b" class="bulleted-list"><li style="list-style-type:disc">Under <code>containers:</code> -&gt; <code>command:</code> change <code>kube-controller-manage</code> to <code>kube-controller-manager</code> and restart <code>kube-controller-manager-cluster4-controlplane</code> POD</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="411f26cf-293d-4bbf-8386-c5ab00507085" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl delete pod kube-controller-manager-cluster4-controlplane -n kube-system</code></pre><h3 id="b3b1a2b1-08d8-441e-bce9-2bec00b385a4" class="">Check now the ReplicaSet</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="5571c225-e7d6-4792-993e-88ee86c19abf" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl get deployment</code></pre><p id="be44dd05-7f1c-443b-9c33-ad0e4b009754" class=""><code>CURRENT</code> count should be equal to the <code>DESIRED</code> count now for <code>pink-depl-cka14-trb</code>.</p></details></li></ul><ul id="52b67878-284d-4bf0-9228-14da68320831" class="toggle"><li><details open=""><summary>PV &amp; PVC with Storage Class</summary><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f55bfff0-80ab-4560-9159-0d03cf0aa8a5" class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: coconut-pv-cka01-str
+  labels: 
+    storage-tier: gold
+spec:
+  capacity:
+    storage: 100Mi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: /opt/coconut-stc-cka01-str
+  storageClassName: coconut-stc-cka01-str
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - cluster1-node01
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: coconut-pvc-cka01-str
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Mi
+  storageClassName: coconut-stc-cka01-str
+  selector: 
+    matchLabels:
+      storage-tier: gold</code></pre></details></li></ul><ul id="bab23b49-722c-4139-954f-1be38cbc2e94" class="toggle"><li><details open=""><summary>Troubleshooting: service not reachable from a pod</summary><ul id="64798051-f934-4b30-a3f1-72e863705f87" class="bulleted-list"><li style="list-style-type:disc">Test if the service <code>curlme-cka01-svcn</code> is accessible from pod <code>curlpod-cka01-svcn</code> or not.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="d29f4e20-c53c-43a3-8215-b0586db723fa" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl exec curlpod-cka01-svcn -- curl curlme-cka01-svcn
+
+.....
+  %Total    %Received %XferdAverageSpeedTimeTimeTimeCurrentDloadUploadTotalSpentLeftSpeed0     0    0     0    0     0      0      0 --:--:--  0:00:10 --:--:--     0</code></pre><ul id="79e85e34-89eb-4b90-a7fd-2064c8c8ed3f" class="bulleted-list"><li style="list-style-type:disc">We did not get any response. Check if the service is properly configured or not.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="b4e803ed-7d86-4959-aa9b-9f9cad9f84ee" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl describe svc curlme-cka01-svcn &#x27;&#x27;
+
+....
+Name:              curlme-cka01-svcn
+Namespace:         default
+Labels:            &lt;none&gt;
+Annotations:       &lt;none&gt;
+Selector:          run=curlme-ckaO1-svcn
+Type:              ClusterIP
+IP Family Policy:  SingleStack
+IP Families:       IPv4
+IP:                10.109.45.180
+IPs:               10.109.45.180
+Port:              &lt;unset&gt;  80/TCP
+TargetPort:        80/TCP
+Endpoints:         &lt;none&gt;
+Session Affinity:  None
+Events:            &lt;none&gt;</code></pre><ul id="253243c4-a082-452d-8cae-98868c05415f" class="bulleted-list"><li style="list-style-type:disc">The service has no endpoints configured. As we can delete the resource, let&#x27;s delete the service and create the service again.</li></ul><ul id="0aa9296b-9f23-44c6-aaf7-d5eed0c145f0" class="bulleted-list"><li style="list-style-type:disc">To delete the service, use the command <code>kubectl delete svc curlme-cka01-svcn</code>.</li></ul><ul id="947922b9-8d14-4513-92bb-e1f48ccd504f" class="bulleted-list"><li style="list-style-type:disc">You can create the service using imperative way or declarative way.</li></ul><p id="c14ce097-9d92-46e8-b988-9f196d480c25" class=""><strong>Using imperative command:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="e7aeeb38-2f7e-4585-b3e1-8c53e62f1d30" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl expose pod curlme-cka01-svcn --port=80</code></pre></details></li></ul><ul id="65721512-2b72-4422-b9d9-591030bb6aa0" class="toggle"><li><details open=""><summary>Possible reason for pod restarting due to liveness check fail</summary><p id="c923891c-1ebc-49cf-9fc7-411a7cad3069" class="">Notice the command <code>sleep 3; touch /healthcheck; sleep 30;sleep 30000</code> it starts with a delay of <code>3</code> seconds, but the liveness probe <code>initialDelaySeconds</code> is set to <code>1</code> and <code>failureThreshold</code> is also <code>1</code>. Which means the POD will fail just after first attempt of liveness check which will happen just after <code>1</code> second of pod start. So to make it stable we must increase the <code>initialDelaySeconds</code> to at least <code>5</code></p></details></li></ul><ul id="bee07ff8-017f-43dd-9169-d8a360249874" class="toggle"><li><details open=""><summary>Out of Memory error causing pod restarts</summary><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="b1a27130-a130-43fa-8db3-e1cb808eebf7" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl logs -f green-deployment-cka15-trb-xxxx</code></pre><p id="9ade05da-a9b6-42b9-b7c7-f5ecee31b12e" class="">You will see some logs like these</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="6f8b744c-350b-4f0c-9ff1-5d04149bc445" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">2022-09-18 17:13:25 98 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+2022-09-18 17:13:25 98 [Note] InnoDB: Memory barrier is not used
+2022-09-18 17:13:25 98 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2022-09-18 17:13:25 98 [Note] InnoDB: Using Linux native AIO
+2022-09-18 17:13:25 98 [Note] InnoDB: Using CPU crc32 instructions
+2022-09-18 17:13:25 98 [Note] InnoDB: Initializing buffer pool, size = 128.0M
+Killed</code></pre><p id="ee03caa8-c4dd-44b3-85da-27ad9c998c45" class="">This might be due to the resources issue, especially the memory, so let&#x27;s try to recreate the POD to see if it helps.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="77ce9648-a52f-4778-a9c1-b19ec3574691" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl delete pod green-deployment-cka15-trb-xxxx</code></pre><p id="28cea804-c99a-4f56-8550-972b7280c895" class="">Now watch closely the POD status</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3abefde4-342c-4aad-a051-8e831834ccfa" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl get pod</code></pre><p id="d60716fa-fd06-418f-b415-727795b4c9de" class="">Pretty soon you will see the POD status has been changed to <code>OOMKilled</code> which confirms its the memory issue. So let&#x27;s look into the resources that are assigned to this deployment.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="91562cde-4f76-4567-a8d0-b085f64ec35d" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl get deploy
+kubectl edit deploy green-deployment-cka15-trb</code></pre><ul id="7180f482-f2fe-4d5f-afab-b2701d0b919e" class="bulleted-list"><li style="list-style-type:disc">Under <code>resources:</code> -&gt; <code>limits:</code> change <code>memory</code> from <code>256Mi</code> to <code>512Mi</code> and save the changes.</li></ul><p id="46cf065f-cea6-4b78-b03c-667b0289a3db" class="">Now watch closely the POD status again</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="4825d7fd-d2c7-45f7-b2b7-135d9ac807e5" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl get pod</code></pre><p id="9eb61eea-d6c4-488b-8922-bc91712a21db" class="">It should be stable now.</p></details></li></ul><ul id="33f2e592-243c-4fa6-9023-97dd0c552c17" class="toggle"><li><details open=""><summary>Troubleshooting cluster</summary><ul id="444cc571-30db-4eea-a3d0-56758070cb8b" class="bulleted-list"><li style="list-style-type:disc"><code>ssh cluster4-controlplane</code><p id="8e4a60b7-873a-463f-94a0-fe0e61ea7efc" class="">Let&#x27;s take <code>etcd</code> backup</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="dfb422c5-db06-4b46-bb00-054fbc99ff92" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">ETCDCTL_API=3 etcdctl --endpoints=https://[127.0.0.1]:2379 --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key snapshot save /opt/etcd-boot-cka18-trb.db</code></pre><p id="fe5ca541-040e-4566-b193-6b1077b184f0" class="">It might stuck for forever, let&#x27;s see why that would happen. Try to list the PODs first</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="ae3efe9c-d706-4252-8fcd-97c356900318" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl get pod -A</code></pre><p id="483664a9-e5f8-4108-8938-1e05c42c2854" class="">There might an error like</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="b1b80a5f-97fb-43af-b9d5-d98a67c7fe1e" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">The connection tothe server cluster4-controlplane:6443 was refused - did you specify the right host or port?</code></pre><p id="0f12cf3a-e2b0-4b66-9db5-f59048b5989c" class="">There seems to be some issue with the cluster so let&#x27;s look into the logs</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="269600d9-13aa-45da-aa7d-fd3bc7eafeaa" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">journalctl -u kubelet -f</code></pre><p id="a4a1a094-f695-47fb-a91a-df82d834e835" class="">You will see a lot of <code>connect: connection refused</code> errors but that must be because the different cluster components are not able to connect to the api server so try to filter out these logs to look more closly</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="e31ee72a-51e2-4421-a0e1-5a6c8c20b7c0" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">journalctl -u kubelet -f | grep -v &#x27;connect: connection refused&#x27;</code></pre><p id="6bf0bce8-19d3-472a-9e12-bce30f711da6" class="">You should see some erros as below</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="097fd320-6307-40ab-9684-a622c98eb057" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">cluster4-controlplane kubelet[2240]: E0923 04:38:15.630925    2240 file.go:187] &quot;Could not process manifest file&quot; err=&quot;invalid pod: [spec.containers[0].volumeMounts[1].name: Not found: \&quot;etcd-cert\&quot;]&quot; path=&quot;/etc/kubernetes/manifests/etcd.yaml&quot;</code></pre><p id="7e67d2f6-cf10-4f2f-8875-ab500112982e" class="">So seems like there is some incorrect volume which <code>etcd</code> is trying to mount, let&#x27;s look into the <code>etcd</code> manifest.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="c24d1172-9a4c-4c19-9bdf-868bc590c6ea" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">vi /etc/kubernetes/manifests/etcd.yaml</code></pre><p id="34c642da-b9e7-4892-8c55-a44fdc8fe38b" class="">Search for <code>etcd-cert</code>, you will notice that the volume name is <code>etcd-certs</code> but the volume mount is trying to mount <code>etcd-cert</code> volume which is incorrect. Fix the volume mount name and save the changes. Let&#x27;s restart <code>kubelet</code> service after that.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="bd482f2c-06b4-4f0d-acc2-58ef53190e7e" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">systemctl restart kubelet</code></pre><p id="3867708b-e492-444b-b12c-532d4864674d" class="">Wait for few minutes to see if its good now.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="cb147b36-702e-421d-ad33-716f019fb46f" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl get pod -A</code></pre><p id="8636ac18-25c1-41df-aba7-c055ac8a8bee" class="">You should be able to list the PODs now, let&#x27;s try to take <code>etcd</code> backup now:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="8aff79c1-bc5b-4a35-b3c3-5ebc09ebb325" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">ETCDCTL_API=3 etcdctl --endpoints=https://[127.0.0.1]:2379 --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key snapshot save /opt/etcd-boot-cka18-trb.db</code></pre><p id="1cfb9bed-b905-440d-aafb-2e4aab086ef4" class="">It should work now.</p></li></ul></details></li></ul><ul id="a5edc14d-dadc-44b7-b4be-8a658c5aad60" class="toggle"><li><details open=""><summary>Rearranging kubectl outputs in columns</summary><p id="e52961ee-16f4-4fa0-be8e-a4db487f48bc" class="">The easiest way to route traffic to a specific pod is by the use of <code>labels</code> and <code>selectors</code> . List the pods along with their labels:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="8c0691ce-c1c2-4f1b-ac03-05872273f5f0" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">student-node ~ ➜  kubectl get pods --show-labels -n spectra-1267
+NAME     READY   STATUS    RESTARTS   AGE     LABELS
+pod-12   1/1     Running   0          5m21s   env=dev,mode=standard,type=external
+pod-34   1/1     Running   0          5m20s   env=dev,mode=standard,type=internal
+pod-43   1/1     Running   0          5m20s   env=prod,mode=exam,type=internal
+pod-23   1/1     Running   0          5m21s   env=dev,mode=exam,type=external
+pod-32   1/1     Running   0          5m20s   env=prod,mode=standard,type=internal
+pod-21   1/1     Running   0          5m20s   env=prod,mode=exam,type=external</code></pre><p id="78da4b42-6164-4fc7-b724-8bbeb737f9fb" class="">Looks like there are a lot of pods created to confuse us. But we are only concerned with the labels of <code>pod-23</code> and <code>pod-21</code>.</p><p id="04576176-5bbf-4ef0-9eb1-081ec14366ea" class="">As we can see both the required pods have labels <code>mode=exam,type=external</code> in common. Let&#x27;s confirm that using kubectl too:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3a09773b-0be7-4887-b763-2639104b6f3f" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">student-node ~ ➜  kubectl get pod -l mode=exam,type=external -n spectra-1267
+NAME     READY   STATUS    RESTARTS   AGE
+pod-23   1/1     Running   0          9m18s
+pod-21   1/1     Running   0          9m17s</code></pre><p id="b6267b5c-8768-452b-b2ed-d5f921fa8970" class="">Nice!! Now as we have figured out the labels, we can proceed further with the creation of the service:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="21ef8313-fafa-4c3a-9a29-6c9456c847a9" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">student-node ~ ➜  kubectl create service clusterip service-3421-svcn -n spectra-1267 --tcp=8080:80 --dry-run=client -o yaml &gt; service-3421-svcn.yaml</code></pre><p id="845eae34-8134-4984-91c4-e427288f52e7" class="">Now modify the service definition with selectors as required before applying to k8s cluster:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="53364d10-db47-48ff-8cb5-aeca731a22b5" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">student-node ~ ➜  cat service-3421-svcn.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp:nulllabels:
+    app: service-3421-svcn
+  name: service-3421-svcn
+  namespace: spectra-1267
+spec:
+  ports:
+  - name: 8080-80
+    port: 8080
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: service-3421-svcn  # delete
+    mode: exam    # add
+    type: external  # add
+  type: ClusterIP
+status:
+  loadBalancer: {}</code></pre><p id="11e156f5-7db2-4d99-ba1a-ee84ba1cdb2c" class="">Finally let&#x27;s apply the service definition:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2ea5fde8-1df6-4746-b369-7204420d6c7d" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">student-node ~ ➜  kubectl apply -f service-3421-svcn.yaml
+service/service-3421 created
+
+student-node ~ ➜  k get ep service-3421-svcn -n spectra-1267
+NAME           ENDPOINTS                     AGE
+service-3421   10.42.0.15:80,10.42.0.17:80   52s</code></pre><p id="4e80be1d-98f8-411a-a6dc-4bce07d26347" class="">To store all the pod name along with their IP&#x27;s , we could use imperative command as shown below:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="c331c39e-6cf7-4628-98c2-f1aaf022997b" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">student-node ~ ➜  kubectl get pods -n spectra-1267 -o=custom-columns=&#x27;POD_NAME:metadata.name,IP_ADDR:status.podIP&#x27; --sort-by=.status.podIP
+
+POD_NAME   IP_ADDR
+pod-12     10.42.0.18
+pod-23     10.42.0.19
+pod-34     10.42.0.20
+pod-21     10.42.0.21
+...
+
+# store the output to /root/pod_ips
+student-node ~ ➜  kubectl get pods -n spec</code></pre></details></li></ul><ul id="ef432fc8-43fe-4942-9425-f9238ca38fc0" class="toggle"><li><details open=""><summary>External endpoint for a service</summary><ul id="40f534a9-80d0-4f81-b2cb-5d21c1f86250" class="bulleted-list"><li style="list-style-type:disc">Let&#x27;s check if the webserver is working or not:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="ebda1bdf-cfb2-4247-9126-c500c1d1cc5b" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">student-node~ ➜  curl student-node:9999
+...
+&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;
+...</code></pre><p id="bc66734c-1021-4b40-b2f2-081b5589ca4c" class="">Now we will check if service is correctly defined:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="e5ed2231-a2cf-4022-9a36-80e85f62115e" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">student-node ~ ➜  kubectldescribe svcexternal-webserver-cka03-svcn
+Name:external-webserver-cka03-svcn
+Namespace:default
+.
+.
+Endpoints:         &lt;none&gt; # thereareno endpointsfor the service
+...</code></pre><p id="5f0133b6-aa44-4643-872a-130bfc22b257" class="">As we can see there is no endpoints specified for the service, hence we won&#x27;t be able to get any output. Since we can not destroy any k8s object, let&#x27;s create the endpoint manually for this service as shown below:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="85f8f17f-2641-469e-88d4-81f8c5709d12" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">student-node ~ ➜  export IP_ADDR=$(ifconfig eth0 | grep inet | awk &#x27;{print $2}&#x27;)
+
+student-node ~ ➜ kubectl --context cluster3 apply -f - &lt;&lt;EOF
+apiVersion: v1
+kind: Endpoints
+metadata:
+  # the name here should match the name of the Service
+  name: external-webserver-cka03-svcn
+subsets:
+  - addresses:
+      - ip: $IP_ADDR
+    ports:
+      - port: 9999
+EOF</code></pre><p id="1445e721-e6d7-4d3e-8aa2-f6b2d876bc0b" class="">Finally check if the <code>curl test</code> works now:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="0fb3e3f2-ba98-40ef-8346-a475d8dec3d9" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">student-node ~ ➜  kubectl --context cluster3 run --rm  -i test-curl-pod --image=curlimages/curl --restart=Never -- curl -m 2 external-webserver-cka03-svcn
+...
+&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+...</code></pre></li></ul></details></li></ul><ul id="0b2038c0-85bb-4ce4-8dc3-b80207f59111" class="toggle"><li><details open=""><summary>Running nslookup in pods</summary><p id="55d9801d-1e2f-411f-87b8-adc23aa1d6a0" class="">Switching to <code>cluster1</code>:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f179cb43-71e2-454d-b56b-aac4c3d5134c" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectlconfiguse-context cluster1</code></pre><p id="34124c46-db66-49f8-b276-6d815dafcf40" class="">To create a pod <code>nginx-resolver-cka06-svcn</code> and expose it internally:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="0052e789-c65c-4c3c-b3ee-0695dba49ff6" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">student-node ~ ➜ kubectl run nginx-resolver-cka06-svcn --image=nginx
+student-node ~ ➜ kubectl expose pod/nginx-resolver-cka06-svcn --name=nginx-resolver-service-cka06-svcn --port=80 --target-port=80 --type=ClusterIP</code></pre><p id="d80a81bf-cfdf-4979-b34f-40477425042d" class="">To create a pod <code>test-nslookup</code>. Test that you are able to look up the service and pod names from within the cluster:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="c96e772e-b8d1-40cd-aafb-7257e33fa47c" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">student-node ~ ➜  kubectl run test-nslookup --image=busybox:1.28 --rm -it --restart=Never -- nslookup nginx-resolver-service-cka06-svcn
+student-node ~ ➜  kubectl run test-nslookup --image=busybox:1.28 --rm -it --restart=Never -- nslookup nginx-resolver-service-cka06-svcn &gt; /root/CKA/nginx.svc.cka06.svcn</code></pre><p id="27fb8e56-1e94-4d78-a25c-e2db6826a918" class="">Get the IP of the <code>nginx-resolver-cka06-svcn</code> pod and replace the dots(.) with hyphens(-) which will be used below.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3ce14608-46f8-4455-bc6e-7dd1861fb637" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">student-node ~ ➜  kubectl get pod nginx-resolver-cka06-svcn -o wide
+student-node ~ ➜  IP=`kubectl get pod nginx-resolver-cka06-svcn -o wide --no-headers | awk &#x27;{print $6}&#x27; | tr &#x27;.&#x27; &#x27;-&#x27;`
+student-node ~ ➜  kubectl run test-nslooku</code></pre></details></li></ul><ul id="ca5e41e1-1703-43a9-91e7-b9f523f005f2" class="toggle"><li><details open=""><summary>Possible reason for pod stuck in pending state due to PVC stuck in pending state</summary><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="74739bb0-d810-4e74-87e0-d916fdb9fd58" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl get event --field-selector involvedObject.name=demo-pod-cka29-trb</code></pre><p id="070a65fd-6587-4bf9-8995-c908d20da110" class="">You will see some Warnings like:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1acb1088-2c56-45d2-bc72-a4e059364e2b" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Warning   FailedScheduling   pod/demo-pod-cka29-trb   0/3 nodes are available: 3 pod has unbound immediate PersistentVolumeClaims. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling.</code></pre><p id="f92a5774-5808-4f87-8e1f-2ee43021fb77" class="">This seems to be something related to <code>PersistentVolumeClaims</code>, Let&#x27;s check that:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="a9667599-0551-49c6-9503-1d55b9708dc7" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl get pvc</code></pre><p id="a2c26ab3-7893-45a7-aefa-e1eb7e071e69" class="">You will notice that <code>demo-pvc-cka29-trb</code> is stuck in <code>Pending</code> state. Let&#x27;s dig into it</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="dc4dc216-1d22-4850-91ed-e314b09165d3" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl get event --field-selector involvedObject.name=demo-pvc-cka29-trb</code></pre><p id="aba18bd2-c445-4551-9fcd-d91d82dd0f2e" class="">You will notice this error:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="7a273fed-db1e-4ccd-ba68-238e4f760499" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Warning   VolumeMismatch   persistentvolumeclaim/demo-pvc-cka29-trb   Cannot bindto requested volume &quot;demo-pv-cka29-trb&quot;: incompatible accessMode</code></pre><p id="015114b9-0e51-4c0c-b99c-ba65647337d0" class="">Which means the PVC is using incompatible accessMode, let&#x27;s check the it out</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="57522d37-ea21-4708-9cfa-682c099ce105" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl get pvc demo-pvc-cka29-trb -o yaml
+kubectl get pv demo-pv-cka29-trb -o yaml</code></pre><p id="316db280-dc98-42e8-b154-cbb2c21c3beb" class="">Let&#x27;s re-create the PVC with correct access mode i.e <code>ReadWriteMany</code></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="286d091d-cacd-4a96-9860-6351bc9e319c" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl get pvc demo-pvc-cka29-trb -o yaml &gt; /tmp/pvc.yaml
+vi /tmp/pvc.yaml</code></pre><ul id="779f108e-924b-4960-8e06-339f15312439" class="bulleted-list"><li style="list-style-type:disc">Under <code>spec:</code> change <code>accessModes:</code> from <code>ReadWriteOnce</code> to <code>ReadWriteMany</code></li></ul><p id="6e437595-d123-4172-ab8e-f090bc7d65c8" class="">Delete the old PVC and create new</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="dde14a10-a2f9-47c9-bd7f-0709be4a18e9" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl delete pvc demo-pvc-cka29-trb
+kubectl apply -f /tmp/pvc.yaml</code></pre><p id="8c123dfb-f969-4f40-aad2-6c5a9907b3ae" class="">Check the POD now</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="61b3545d-1ed5-406a-8748-b389a554f9db" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl get pod demo-pod-cka29-trb</code></pre><p id="9efef2a9-5e32-4728-8ad3-9d8d6678e182" class="">It should be good now.</p></details></li></ul><ul id="9e395a52-1fce-4a5c-a165-721eea41fec8" class="toggle"><li><details open=""><summary>Worker node not in ready state</summary><p id="095b3ee7-c9dd-45e8-9c82-b4832851217b" class="">SSH into the <code>cluster4-node01</code> and check if <code>kubelet</code> service is running</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="7794e555-158c-4d0f-8cbf-846184f948f8" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">ssh cluster4-node01
+systemctlstatus kubelet</code></pre><p id="109a7ec0-dd61-4dd2-a8e5-6b85af53b0e5" class="">You will see its inactive, so try to start it.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="5add2154-e212-4dba-a8f1-9a794c14fae9" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">systemctl start kubelet</code></pre><p id="5fbecf0a-a33c-4158-bda8-d7e1df229407" class="">Check again the status</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="8e549793-a54a-4df8-9c37-a773091a1f23" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">systemctl status kubelet</code></pre><p id="735a0dcd-7f01-465a-9803-f8c3d7eecb36" class="">Its still failing, so let&#x27;s look into some latest error logs:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f8c34425-3eab-4d00-adb2-92affe2f93e6" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">journalctl -u kubelet --since &quot;30 min ago&quot; | grep &#x27;Error:&#x27;</code></pre><p id="6533ae30-5572-4e96-b596-8552f4af7ab3" class="">You will see some errors as below:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="56810507-ff53-4c0c-a964-ae76fb7e67f1" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">cluster4-node01 kubelet[6301]: Error: failed to construct kubeletdependencies: unable to load client CAfile /etc/kubernetes/pki/CA.crt: open /etc/kubernetes/pki/CA.crt: no suchfile or directory</code></pre><p id="305a8587-bcb1-4982-869c-1e4bf755545e" class="">Check if <code>/etc/kubernetes/pki/CA.crt</code> file exists:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="fb0363b9-b1ed-4043-85f5-e71e8bfd637a" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">ls /etc/kubernetes/pki/</code></pre><p id="e2e8d792-8cdf-4d21-b333-e44ff024c693" class="">You will notice that the file name is <code>ca.crt</code> instead of <code>CA.crt</code> so possibly <code>kubelet</code> is looking for a wrong file. Let&#x27;s fix the config:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="aacaa80e-f5b4-4f00-9230-ea2a1589e50e" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">vi /var/lib/kubelet/config.yaml</code></pre><ul id="28f4e799-95e3-45bf-9116-a457d32bfbc7" class="bulleted-list"><li style="list-style-type:disc">Change clientCAFile from <code>/etc/kubernetes/pki/CA.crt</code> to <code>/etc/kubernetes/pki/ca.crt</code></li></ul><p id="846087e8-ae03-4f5c-bb22-2490cd6f9623" class="">Try to start it again</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f44590c9-e945-4373-952d-bfc03e74abd8" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">systemctl start kubelet</code></pre><p id="c97b67b8-5b18-4579-952a-122a0035ec02" class="">Service should start now but there might be an error as below</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3d0d2488-ba3c-4a2e-9a2b-54aecdb61aa2" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">ReportingIn
+stance:&quot;&quot;}&#x27;: &#x27;Post &quot;https://cluster4-controlplane:6334/api/v1/namespaces/default/events&quot;: dial tcp 10.9.63.18:633
+4: connect: connection refused&#x27;(may retry after sleeping)
+Sep 18 09:21:47 cluster4-node01 kubelet[6803]: E0918 09:21:47.641184    6803 kubelet.go:2419] &quot;Error getting node
+&quot; err=&quot;node \&quot;cluster4-node01\&quot; not found&quot;</code></pre><p id="21f272f9-2e39-4363-9403-52319a946c35" class="">You must have noticed that its trying to connect to the <code>api</code> server on port <code>6334</code> but the default port for <code>kube-apiserver</code> is <code>6443</code>. Let&#x27;s fix this:</p><h3 id="ea184bec-db2f-4e48-8075-2ddbaab529cd" class="">Edit the kubelet config</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3a550e65-a6ab-487c-bb64-9e3f28c7aedc" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">vi /etc/kubernetes/kubelet.conf</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="8e67d637-48d1-4003-8c60-95d0b814d13f" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all"></code></pre><ul id="21b33776-a104-4f82-b1af-6f31e6c35dc5" class="bulleted-list"><li style="list-style-type:disc">Change server</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="80e1e3ad-7f97-46f7-9e33-025726f80e8f" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">server: https://cluster4-controlplane:6334</code></pre><p id="14de660d-2864-427c-8a5a-8edbe7f4677f" class="">to</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="8e5a572a-e1d4-4f8e-9cbe-529675d16a92" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">server: https://cluster4-controlplane:6443</code></pre><h3 id="a21ca4c8-f15e-46de-99c2-815b5ae9f264" class="">Finally restart kublet service</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="7c0e754c-fe03-4381-b128-a2206d73faf0" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">systemctl restart kubelet</code></pre><p id="87d92aca-500b-4501-a7ef-755106bffbe2" class="">Check from the <code>student-node</code> now and <code>cluster4-node01</code> should be ready now.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="964d113e-2ef8-4685-aba4-aef0b40dcc51" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl get node --context=cluster4</code></pre></details></li></ul><ul id="0577b7b8-2b3e-44a8-a191-b8acc6f02800" class="toggle"><li><details open=""><summary>Daemonset not getting scheduled on the controlplane node</summary><p id="3fe898c3-3f88-44cd-8b20-3c24a6353882" class="">Check the status of DaemonSet</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="5dec73b6-7b2e-4076-a387-38967b483fc8" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl --context2 cluster2 get ds logs-cka26-trb -n kube-system</code></pre><p id="ab512c41-cffc-4e49-8d4a-a43d2b2737b3" class="">You will find that <code>DESIRED</code> <code>CURRENT</code> <code>READY</code> etc have value <code>2</code> which means there are two pods that have been created. You can check the same by listing the PODs</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="979ee32d-a614-4bf8-b2fa-0c9034f39897" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl --context2 cluster2 get pod  -n kube-system</code></pre><p id="298e8a6f-7754-42d9-9d0e-78b713d6daf9" class="">You can check on which nodes these are created on</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="9170eebf-9f7f-419a-afcd-1a4441bb1483" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl --context2 cluster2 get pod &lt;pod-name&gt; -n kube-system -o wide</code></pre><p id="cd451c6d-e3d5-4e80-8b15-ee7c11e19bb7" class="">Under <code>NODE</code> you will find the node name, so we can see that its not scheduled on the <code>controlplane</code> node which is because it must be missing the reqiured <code>tolerations</code>. Let&#x27;s edit the DaemonSet to fix the <code>tolerations</code></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="fc17231a-5851-483e-b542-ad5288fb440c" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl --context2 cluster2 edit ds logs-cka26-trb -n kube-system</code></pre><p id="2e39a2d4-5288-4270-b4ac-0b3635c8ebee" class="">Under <code>tolerations:</code> add below given <code>tolerations</code> as well</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="83919121-9083-4186-a610-fdce1ac5a6d1" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">- key: node-role.kubernetes.io/control-plane
+  operator: Exists
+  effect: NoSchedule</code></pre><p id="1238beaf-d456-40b3-92f1-ef0ca2f1d383" class="">Wait for some time PODs should schedule on all nodes now including the <code>controlplane</code> node.</p></details></li></ul><ul id="bf270e72-c067-40e9-9c29-2989cf2e2bde" class="toggle"><li><details open=""><summary>Several pods in <code>kube-system</code> namespace are restarting after some time</summary><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="52fb9364-8a01-48d8-aad5-a6007605b0a9"><div style="font-size:1.5em"><span class="icon">🚫</span></div><div style="width:100%">In such questions, a common reason is health check as it fails after an interval and leads to pod crashing.</div></figure><p id="e11a4c91-c412-4d39-8896-a4649affa6aa" class="">You will see that <code>kube-controller-manager-cluster4-controlplane</code> pod is crashing or restarting. So let&#x27;s try to watch the logs.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="e4856328-c451-40c0-acab-5ec9b1488173" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl logs -f kube-controller-manager-cluster4-controlplane --context=cluster4 -n kube-system</code></pre><p id="8bda92da-1481-4d9b-be91-5deb07084bef" class="">You will see some logs as below:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="9232e9c7-f749-46c7-aef5-2f0d498ea676" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all"> leaderelection.go:330] error retrieving resource lock kube-system/kube-controller-manager: Get &quot;https://10.10.129.21:6443/apis/coordination.k8s.io/v1/namespaces/kube-system/leases/kube-controller-manager?timeout=5s&quot;: dial tcp 10.10.129.21:6443: connect: connection refused</code></pre><p id="76e39c05-f018-4d27-910b-0a9b8769a48e" class="">You will notice that somehow the connection to the kube api is breaking, let&#x27;s check if kube api pod is healthy.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="44b71cc1-044f-498c-8616-a5e09fbaeb98" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl get pod --context=cluster4 -n kube-system</code></pre><p id="fb631b3b-e52a-4822-84a4-93adae0c77c0" class="">Now you might notice that <code>kube-apiserver-cluster4-controlplane</code> pod is also restarting, so we should dig into its logs or relevant events.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2bef7997-21f2-4b91-84af-bcc4d6febe54" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl logs -f kube-apiserver-cluster4-controlplane -n kube-system
+kubectl get event --field-selector involvedObject.name=kube-apiserver-cluster4-controlplane -n kube-system</code></pre><p id="95eb8d6b-62a7-4676-b2de-cf73cbd8ed53" class="">In events you will see this error</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="c71c9134-3dce-4fd8-88bc-0195c5da455f" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Warning   Unhealthy      pod/kube-apiserver-cluster4-controlplane   Liveness probe failed: Get &quot;https://10.10.132.25:6444/livez&quot;: dial tcp 10.10.132.25:6444: connect: connection refused</code></pre><p id="0ecda180-36ff-49da-b9cf-1fde92499798" class="">From this we can see that the Liveness probe is failing for the <code>kube-apiserver-cluster4-controlplane</code> pod, and we can see its trying to connect to port <code>6444</code> port but the default api port is <code>6443</code>. So let&#x27;s look into the kube api server manifest.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1b50f5cc-3446-4fbd-b42d-7901e09e921c" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">ssh cluster4-controlplane
+vi /etc/kubernetes/manifests/kube-apiserver.yaml</code></pre><p id="981469e6-ab3e-4b82-83d8-a04e53b64126" class="">Under <code>livenessProbe:</code> you will see the <code>port:</code> value is <code>6444</code>, change it to <code>6443</code> and save. Now wait for few seconds let the kube api pod come up.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="809e383c-d684-4ac6-a102-cada92369f24" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl get pod -n kube-system</code></pre><p id="2682c8bf-3556-4e40-9fe7-23040e8a3e41" class="">Watch the PODs status for some time and make sure these are not restarting now.</p></details></li></ul><ul id="cdee76be-8c62-4d29-a5e0-4d80c616de1d" class="toggle"><li><details open=""><summary>Pod not getting scheduled on any node (cannot edit pod config to fix it)</summary><p id="db0685c6-9303-43c7-a8ee-753bddf82bfe" class="">You will see that <code>cat-cka22-trb</code> pod is stuck in <code>Pending</code> state. So let&#x27;s try to look into the events</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="38e528c2-0c66-4fc9-82e0-d22b9da9321f" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl --context cluster2 get event --field-selector involvedObject.name=cat-cka22-trb</code></pre><p id="516b1e1c-9f68-4c9d-a841-69754372342a" class="">You will see some logs as below</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3019f989-1c19-403d-98b9-2fe695204a43" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Warning   FailedScheduling   pod/cat-cka22-trb   0/3 nodes are available: 1node(s) had untolerated taint {node-role.kubernetes.io/master: }, 2node(s) didn&#x27;t match Pod&#x27;snodeaffinity/selector. preemption: 0/2 nodes are available: 3 Preemption is not helpful for scheduling.</code></pre><p id="c2bdf64c-6b36-446c-86c9-c12f1a080897" class="">So seems like this POD is using the node affinity, let&#x27;s look into the POD to understand the node affinity its using.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="96a90f96-4d1e-40af-a6be-2932e3a439ca" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl --context cluster2 get pod cat-cka22-trb -o yaml</code></pre><p id="0920e3f4-7900-4c8d-a9c7-67bb4b00df0b" class="">Under <code>affinity:</code> you will see its looking for <code>key: node</code> and <code>values: cluster2-node02</code> so let&#x27;s verify if node01 has these labels applied.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="b6490d00-f76e-4987-9d2b-41462bc5fb79" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl --context cluster2 get node cluster2-node01 -o yaml</code></pre><p id="ff98d091-9a8f-459f-b641-18f19d11628f" class="">Look under <code>labels:</code> and you will not find any such label, so let&#x27;s add this label to this node.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10dbb25b-ac68-4601-9dc2-b1b16ee6f0b3" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">kubectl label node cluster1-node01 node=cluster2-node01</code></pre></details></li></ul><p id="94be48aa-a986-474b-a2bc-48327da0875e" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,715 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Service</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="147a6165-d3ab-48dd-9a8f-a3de1bf7e59a" class="page sans"><header><h1 class="page-title">Service</h1><p class="page-description"></p></header><div class="page-body"><ul id="56406536-f511-4ad2-ad93-9d783667ecdb" class="bulleted-list"><li style="list-style-type:disc">Kubernetes services enable communication between various components within and outside of the application. They enable loose coupling between micro-services in our application.</li></ul><ul id="61ae9d9c-2239-426e-b6e4-ce3210d090b6" class="bulleted-list"><li style="list-style-type:disc"><strong>Services are static IPs that can be attached to a pod or a group of pods using label selectors. They are not attached to deployments.</strong> </li></ul><ul id="833d2658-2083-4a39-92e9-805859cf7642" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Services prevent us from using the pod IP addresses for communication which could change when the pod is restarted.</mark></li></ul><ul id="96022314-9ff3-4673-86a5-011d4928fe96" class="bulleted-list"><li style="list-style-type:disc"><strong>Lifecycle of pod and service are not connected.</strong> So even if a pod dies, we can restart it and attach the original service to have the same IP.</li></ul><ul id="ecdd0bb1-36fd-4dd5-939e-326a24940e8b" class="bulleted-list"><li style="list-style-type:disc"><strong>Every service spans the entire cluster (all the nodes in the cluster)</strong></li></ul><ul id="41ed785e-2ca5-4392-84e7-fc04a4069f6b" class="bulleted-list"><li style="list-style-type:disc"><strong>Every service has a unique IP across the K8s cluster</strong></li></ul><ul id="0e1b2855-5b0b-466f-b18e-f022ad62c903" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Kubernetes creates a default ClusterIP Service which forwards requests from within the cluster to the Kubernetes master (API Server).</mark> So, there is at least 1 service in every Kubernetes cluster.</li></ul><ul id="7ac6973f-2eef-41be-bef4-60ac4fe41fb5" class="bulleted-list"><li style="list-style-type:disc">K8s services are of three types:<ul id="6789feff-ab7f-4e9a-bf86-b1d9b0e03257" class="bulleted-list"><li style="list-style-type:circle">NodePort</li></ul><ul id="720ed9d3-61e8-4844-99c8-504d807c9764" class="bulleted-list"><li style="list-style-type:circle">ClusterIP</li></ul><ul id="469535b9-2766-4710-a3b5-98e36308746b" class="bulleted-list"><li style="list-style-type:circle">LoadBalancer</li></ul></li></ul><h1 id="ae8e27e4-0f35-4f80-8e1e-11174bb5ddd1" class="">NodePort Service</h1><p id="2c585f68-4ad8-4cf4-b747-dbd3a665fd27" class="">Consider an application running in a pod on a node which is on the same network as our laptop, we could SSH into the node and then reach the application by its IP on the Kubernetes network (<code>10.244.0.0/16</code>). But doing an SSH into the node to access the application is not the right way. </p><figure id="4ba094b2-dc12-4cf7-99d1-abc4f9d94fbc" class="image"><a href="Service%20147a6165d3ab48dd9a8fa3de1bf7e59a/Untitled.png"><img style="width:480px" src="Service%20147a6165d3ab48dd9a8fa3de1bf7e59a/Untitled.png"/></a></figure><ul id="da443007-e91b-4e73-8176-548207977489" class="bulleted-list"><li style="list-style-type:disc">NodePort service maps a port on the node (Node Port) to a port on the pod (Target Port) running the application. This will allow us to reach the application on the node’s IP address.</li></ul><ul id="4ec10afd-d311-435e-a6d5-65e4bfc5c7b6" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Allowed range for NodePort: 30,000 - 32,767</mark></li></ul><figure id="630db2f3-4570-412f-b366-a9eedc7aed95" class="image"><a href="Service%20147a6165d3ab48dd9a8fa3de1bf7e59a/Untitled%201.png"><img style="width:480px" src="Service%20147a6165d3ab48dd9a8fa3de1bf7e59a/Untitled%201.png"/></a></figure><div id="b2b1311b-95c7-4d27-9e50-59b554114f82" class="column-list"><div id="781d231f-7e99-492e-b727-c0f140566f33" style="width:50%" class="column"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="980a3971-a360-4ebf-9dfd-3d0194c52a1f" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">apiVersion: v1
+kind: Service
+metadata:
+	name: myapp-service
+spec:
+	type: NodePort
+	ports:
+		- targetPort: 80
+			port: 80
+			nodePort: 30008
+	selector:
+		app: myapp
+		type: front-end</code></pre></div><div id="14f70f1e-1048-4e07-8610-b4df3d81f88e" style="width:50%" class="column"><ul id="a3ab2dcf-e80d-4231-be61-3cfe8e1f5f42" class="bulleted-list"><li style="list-style-type:disc"><code>selector</code> is used to select target pods for the service</li></ul><ul id="793c41c3-7a9a-4837-95f0-ceb4173caca2" class="bulleted-list"><li style="list-style-type:disc"><code>port</code> - port on which the service would be accessible</li></ul><ul id="36c92c8c-d8a9-4a78-872f-150a26b444e3" class="bulleted-list"><li style="list-style-type:disc"><code>targetPort</code> - port on the pod to which the requests would be forwarded</li></ul><ul id="7958d964-1ab0-4ff5-aff1-c17aba202c89" class="bulleted-list"><li style="list-style-type:disc"><code>nodePort</code> - port on the node</li></ul><p id="6e9e3fe4-f714-4880-b155-5f56cdcccac0" class="">
+</p></div></div><ul id="b9d57974-83e0-4449-beff-5cb35e13e0b9" class="bulleted-list"><li style="list-style-type:disc">If there are multiple target pods on the same node, the service will automatically load balance to these pods.</li></ul><figure id="bc2752ae-72f7-4da6-9f10-20d445cd2ea4" class="image"><a href="Service%20147a6165d3ab48dd9a8fa3de1bf7e59a/Untitled%202.png"><img style="width:384px" src="Service%20147a6165d3ab48dd9a8fa3de1bf7e59a/Untitled%202.png"/></a></figure><ul id="84f439ea-178c-4cb9-b37c-c6aa005d45ec" class="bulleted-list"><li style="list-style-type:disc">If the target pods span multiple nodes in the cluster, as the NodePort service will span the entire cluster, it will map the target port on the pods to the same node port on all the nodes in the cluster, <mark class="highlight-yellow_background">even the nodes that don’t have the application pod running in them</mark>. This will make the application available on the IP addresses of all of the nodes in the cluster.</li></ul><figure id="5dbc2c3e-effb-4588-a886-ca77b1235786" class="image"><a href="Service%20147a6165d3ab48dd9a8fa3de1bf7e59a/Untitled%203.png"><img style="width:384px" src="Service%20147a6165d3ab48dd9a8fa3de1bf7e59a/Untitled%203.png"/></a></figure><h1 id="3398c328-1d9f-4976-8ef1-0bf4f5fda3e1" class="">ClusterIP Service</h1><ul id="fa6b0008-1d05-4b8f-8706-fec9a5740dc2" class="bulleted-list"><li style="list-style-type:disc">Consider a 3-tier application running on a K8s cluster. How will different tiers communicate with each other? Using IPs to communicate is not good as it can change when the pods are restarted. Also, how can we load balance if we have multiple pods in the same tier.</li></ul><figure id="0551c583-8427-4ce4-a746-f8245018d9cb" class="image"><a href="Service%20147a6165d3ab48dd9a8fa3de1bf7e59a/Untitled%204.png"><img style="width:480px" src="Service%20147a6165d3ab48dd9a8fa3de1bf7e59a/Untitled%204.png"/></a></figure><ul id="d2d876cf-ee0f-4d33-8cd5-ae2d89280954" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">ClusterIP Service groups similar pods and provides a single interface to access those pods. We don’t have to access the pods using their IP addresses.</mark></li></ul><ul id="4f0d7982-ea38-44bc-a076-0c877b92243f" class="bulleted-list"><li style="list-style-type:disc">Enables access to the service from within the K8s cluster (internal)</li></ul><ul id="914f915b-5481-4075-a78f-08ceae2d722a" class="bulleted-list"><li style="list-style-type:disc">It automatically load balances to the target pods.</li></ul><ul id="94e5b76d-4eb2-4fb6-bf14-bf3e01383557" class="bulleted-list"><li style="list-style-type:disc"><strong>Service name should be used by other pods to communicate with the service.</strong></li></ul><ul id="01870365-264d-49c4-a84c-81b1ecc91455" class="bulleted-list"><li style="list-style-type:disc">Useful in deploying micro-services architecture on a K8s cluster.</li></ul><div id="aa6ea134-b704-4758-932a-adc975bafd23" class="column-list"><div id="6e7b3126-239f-4832-8ce3-eeb321aa6b51" style="width:50%" class="column"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="533466d7-0d94-4c97-bc0a-59fa0a4278a1" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">apiVersion: v1
+kind: Service
+metadata:
+	name: back-end
+spec:
+	type: ClusterIP
+	ports:
+		- targetPort: 80
+			port: 80
+	selector:
+		app: myapp
+		type: back-end</code></pre></div><div id="7df416fa-1422-4883-bbb0-676a109d9879" style="width:50%" class="column"><ul id="5e33aece-34b2-4cb6-888c-5aa66f1270f4" class="bulleted-list"><li style="list-style-type:disc"><code>selector</code> is used to select target pods for the service</li></ul><ul id="0a5df273-9ebf-4825-a671-0e4e75bb5ae9" class="bulleted-list"><li style="list-style-type:disc"><code>port</code> - port on which the service would be accessible</li></ul><ul id="71341e26-c91b-4c76-8d47-9bf4e2cc04c0" class="bulleted-list"><li style="list-style-type:disc"><code>targetPort</code> - port on the pod to which the requests would be forwarded</li></ul><p id="4815d0f4-dd75-46f2-b7de-1c23cae086ec" class="">
+</p></div></div><h1 id="1b191056-d955-4c81-bd0c-7082cb81da9e" class="">LoadBalancer Service</h1><ul id="63b75c71-80c8-4c32-84bf-110f941d159a" class="bulleted-list"><li style="list-style-type:disc">Consider the case where we have to route the incoming traffic to the front-end of two applications. If the applications are using NodePort service, they can be accessed at different node ports using the IPs of any of the nodes. But, <mark class="highlight-yellow_background">we cannot use higher order ports for our application as they are non standard. Also, how do we load balance to the nodes (the application can be accessed at any of the nodes by using their IP addresses). For these, we need to use a Load Balancer service.</mark></li></ul><figure id="d7e80d27-6c60-453a-8b91-f470d905ee32" class="image"><a href="Service%20147a6165d3ab48dd9a8fa3de1bf7e59a/Untitled%205.png"><img style="width:672px" src="Service%20147a6165d3ab48dd9a8fa3de1bf7e59a/Untitled%205.png"/></a></figure><div id="a2115768-6fca-421a-9373-a8fa7454d78e" class="column-list"><div id="5826658c-1238-47a2-8cc2-af2752623cb6" style="width:50%" class="column"><ul id="c88f2e90-4944-478f-9e9e-4375c2c8caef" class="bulleted-list"><li style="list-style-type:disc">LoadBalancer Service leverages the native layer-4 load balancer of the cloud provider to expose the application on a single IP (NLB’s IP) and load balance to the nodes. So, <mark class="highlight-yellow_background">if a node becomes unhealthy, the NLB will redirect the incoming requests to a healthy node.</mark></li></ul><ul id="f2db7674-804f-4845-8799-e87a846e96fd" class="bulleted-list"><li style="list-style-type:disc">Any NodePort service can be converted to use the cloud provider’s load balancer by setting <code>type: LoadBalancer</code> in the config.yaml file. </li></ul><ul id="af24cb9d-9ed2-41d0-b44f-652b22781168" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">LoadBalancer uses NodePort service behind the scenes</mark> and sets up a layer-4 load balancer of the cloud provider to load balance to the nodes on the high order node port.</li></ul></div><div id="31d42fc9-c726-43d5-bf93-051f5c141456" style="width:50%" class="column"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="fff7a342-9f24-42ec-b8be-72f9d1dbe20b" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">apiVersion: v1
+kind: Service
+metadata:
+	name: myapp-service
+spec:
+	type: LoadBalancer
+	ports:
+		- targetPort: 80
+			port: 80
+			nodePort: 30008
+	selector:
+		app: myapp
+		type: front-end</code></pre></div></div><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="c2c984dd-eb95-4360-a0e7-ebd30b071b98"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">The downside of this is that each service that you expose will require its own public IP (NLB) as NLB cannot redirect to specific application based on URL or path. This makes this approach expensive if we have multiple applications to load balance to. The solution is to use an <a href="Ingress%2016944ef339e74ab0a31822350a1a2f57.html">Ingress</a>, which is an ALB present within the cluster with an single NLB present outside to load balance to the nodes. </div></figure><figure class="block-color-yellow callout" style="white-space:pre-wrap;display:flex" id="930837b3-1736-4543-8ffb-bd942c32219f"><div style="font-size:1.5em"><span class="icon">⛔</span></div><div style="width:100%">LoadBalancer Service is only supported on some cloud platforms. On non-supported cloud providers or local machines, it will behave as a NodePort service.</div></figure><p id="57eaeff6-2f85-4139-b766-ea236f6d5776" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,678 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Kubernetes Networking</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="9edc8c9e-ff24-41dc-9a48-815306231351" class="page sans"><header><h1 class="page-title">Kubernetes Networking</h1><p class="page-description"></p></header><div class="page-body"><nav id="d3a20d82-0e09-4d6b-9495-2ff0130b9c96" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6604138a-d061-478c-bdaf-758c8266f1f4">Cluster (Node) Networking</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#bd2e472f-bb6b-4add-9b1a-db9019446e6b">Pod Networking</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c602770c-d6f0-459e-9965-f0b6748b15d8">CNI Standards</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f25cea8c-9b9d-440e-963c-90ea55ae40c3">WeaveNet - Pod Networking Solution</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d42e470d-9d0b-470e-90f6-e9270659f5d2">Service Networking</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0e3b86ed-b5af-4025-b17e-016bf07aedf1">Important Commands</a></div></nav><h2 id="6604138a-d061-478c-bdaf-758c8266f1f4" class="">Cluster (Node) Networking</h2><div id="3b0e4947-1a37-4a0a-8baf-dcb9934bdf18" class="column-list"><div id="6ff9aa0a-00e7-4b71-92a7-9753f107146c" style="width:50%" class="column"><p id="1ecfec0c-ba77-45c6-b153-a0d3a20e2750" class="">Each node must have at least one interface connected to a common network. Each interface must have an IP address configured. Every node must have a unique hostname as well as a unique MAC address.</p><p id="1789b8eb-c8be-4712-acc2-d4941e74d4b2" class="">
+</p></div><div id="6ef79fcc-918f-4f81-8b0c-679dc81069d2" style="width:50%" class="column"><figure id="676907be-a3a1-44c5-b2a4-1b3cac6c94bc" class="image"><a href="Kubernetes%20Networking%209edc8c9eff2441dc9a48815306231351/Untitled.png"><img style="width:288px" src="Kubernetes%20Networking%209edc8c9eff2441dc9a48815306231351/Untitled.png"/></a></figure></div></div><p id="64a5e11a-0d4b-49f0-ba99-e530ba378432" class="">Various ports need to be opened (firewall and security group settings must be configured) on the master and worker nodes as shown in the diagram. The worker nodes expose services for external access on ports 30000 - 32767 (for <code>NodePort</code> services). </p><figure id="70e59c19-5a9d-4edf-9619-321965bc5019" class="image"><a href="Kubernetes%20Networking%209edc8c9eff2441dc9a48815306231351/Untitled%201.png"><img style="width:624px" src="Kubernetes%20Networking%209edc8c9eff2441dc9a48815306231351/Untitled%201.png"/></a></figure><p id="9931b5ff-9ef9-442a-b906-92e5c133e53b" class="">In a multi-master setup, the ETCD clients need to communicate on port 2380, so that needs to be open as well.</p><figure id="fa1a5075-40b8-42f5-9748-ade0fb12a56b" class="image"><a href="Kubernetes%20Networking%209edc8c9eff2441dc9a48815306231351/Untitled%202.png"><img style="width:432px" src="Kubernetes%20Networking%209edc8c9eff2441dc9a48815306231351/Untitled%202.png"/></a></figure><h2 id="bd2e472f-bb6b-4add-9b1a-db9019446e6b" class="">Pod Networking</h2><p id="61e7dcb3-1134-41e9-ae29-5547d34102a1" class="">Now that we have configured networking at the cluster level as explained in the previous section, all the nodes can communicate with each other each other. But we also need to establish networking at the pod level. <mark class="highlight-yellow_background">K8s doesn’t come with a native pod networking solution. Instead it requires us to set it up ourselves. </mark></p><p id="26efc1b8-4331-4ab5-9811-cea9eec82a45" class="">We can use a CNI compatible networking solution (plugin) to achieve this. Basically, the CNI plugin ensures that every pod on the cluster (irrespective of the node it is running on), gets a unique IP address.</p><figure id="ecf5862c-9495-4a10-8d9a-6cb8a37210be" class="image"><a href="Kubernetes%20Networking%209edc8c9eff2441dc9a48815306231351/Untitled%203.png"><img style="width:528px" src="Kubernetes%20Networking%209edc8c9eff2441dc9a48815306231351/Untitled%203.png"/></a></figure><p id="661801a0-ecd3-436e-9ba3-886eeea54576" class="">After setting up the networking solution:</p><ul id="641292e2-7481-44b8-9d43-7f8993733b54" class="bulleted-list"><li style="list-style-type:disc">Every pod in the cluster should have a unique IP Address.</li></ul><ul id="0b2786bc-856d-4c04-bc3c-59d1ded53750" class="bulleted-list"><li style="list-style-type:disc">Every pod should be able to communicate with every other POD on the same node by using IP addresses.</li></ul><ul id="71f9fce5-9be6-426a-bbb4-3b28451d911f" class="bulleted-list"><li style="list-style-type:disc">Every pod should be able to communicate with every other POD on other nodes by directly using their IP addresses, without using a NAT.</li></ul><p id="d4836511-d7ed-441b-956e-6f4d9eb03bfa" class="">Networking solutions create a bridge network on each node with a <mark class="highlight-yellow_background">different subnet mask</mark> and attach every pod to the bridge network on its node. This way, every pod in the cluster gets a unique IP address. Also, pods on the same node can now communicate with each other using IP addresses. </p><figure id="72d7ab1f-579c-4551-8642-eddc59d025ca" class="image"><a href="Kubernetes%20Networking%209edc8c9eff2441dc9a48815306231351/Untitled%204.png"><img style="width:528px" src="Kubernetes%20Networking%209edc8c9eff2441dc9a48815306231351/Untitled%204.png"/></a></figure><p id="5e79be84-4321-4ae9-a984-f7cbd8bb9d8b" class="">At this stage, pods cannot communicate across nodes. If the blue pod (<code>10.244.1.2</code>) tries to ping the purple pod (<code>10.244.2.2</code>), it won’t be able to since it is on a different subnet. It then routes the request to NODE1’s IP (<code>192.168.1.11</code>) as it is the default gateway for the bridge network on NODE1. Even NODE1 has no idea where the subnet <code>10.244.2.0/24</code> is as it is a private network on NODE2. So, we need a router configured as the default gateway on each node to tell them where to forward the requests going to pods on various bridge networks.</p><figure id="c8d811f0-1ea7-4a09-a35b-1663ab00f3ea" class="image"><a href="Kubernetes%20Networking%209edc8c9eff2441dc9a48815306231351/Untitled%205.png"><img style="width:528px" src="Kubernetes%20Networking%209edc8c9eff2441dc9a48815306231351/Untitled%205.png"/></a></figure><p id="86b1a616-5736-4bc1-a096-03eb3ee3d171" class="">This way, the bridge networks running on each node coalesce together to form a large network with CIDR <code>10.244.0.0/16</code>.</p><figure id="4a4494ff-4650-4cea-950d-5ef39d17b4c1" class="image"><a href="Kubernetes%20Networking%209edc8c9eff2441dc9a48815306231351/Untitled%206.png"><img style="width:528px" src="Kubernetes%20Networking%209edc8c9eff2441dc9a48815306231351/Untitled%206.png"/></a></figure><h2 id="c602770c-d6f0-459e-9965-f0b6748b15d8" class="">CNI Standards</h2><p id="d74342a6-e39d-460d-af45-422fb2d72beb" class="">Networking solutions for K8s must follow the <strong>Container Networking Interface (CNI) </strong>standards. CNI defines how networking solutions (plugins) should be developed and how container runtimes should invoke them. <strong>Docker does not support CNI. </strong>K8s uses a workaround to achieve networking when using Docker as the container runtime.</p><p id="f77a972f-d02f-48b5-86e7-8f72673a5507" class=""><mark class="highlight-yellow_background">CNI is configured on the </mark><mark class="highlight-yellow_background"><a href="Kubelet%20d0ad33a1374d46fea76cf7c81620b7ac.html">Kubelet</a></mark><mark class="highlight-yellow_background"> service.</mark> Here, we define the <code>cni-bin-dir</code> (default <code>/opt/cni/bin</code>) which contains the supported CNI plugins as executable binaries. We also define <code>cni-conf-dir</code> (default <code>/etc/cni/net.d/</code>) which contains the different config files for CNI to be used by Kubelet.</p><figure id="1990625e-26a5-48c1-a347-a9f0e1c2d052" class="image"><a href="Kubernetes%20Networking%209edc8c9eff2441dc9a48815306231351/Untitled%207.png"><img style="width:576px" src="Kubernetes%20Networking%209edc8c9eff2441dc9a48815306231351/Untitled%207.png"/></a></figure><h2 id="f25cea8c-9b9d-440e-963c-90ea55ae40c3" class="">WeaveNet - Pod Networking Solution</h2><figure id="3632f00f-26db-43cd-a8c9-8607189c99a0" class="image"><a href="Kubernetes%20Networking%209edc8c9eff2441dc9a48815306231351/Untitled%208.png"><img style="width:528px" src="Kubernetes%20Networking%209edc8c9eff2441dc9a48815306231351/Untitled%208.png"/></a></figure><p id="153ff5c7-68cc-418a-9cd4-cd9fe18a3e29" class="">WeaveNet is a CNI compatible networking solution plugin for K8s. Instead of configuring a router to route traffic between nodes, it deploys an agent on each node. These agents communicate with each other to share information about their node. Each agent stores the entire network topology, so they know the pods and their IPs on the other nodes.</p><p id="8f3c2f35-f717-49e0-b23c-673670c25b7a" class="">Weave creates a separate bridge network on each node called <code>weave</code> and connects the pods to it. The pods are connected to the docker bridge network and the weave bridge network at the same time. Weave configures the routing on the pods to ensure that all packets destined for other nodes are delivered to the agent. The agent then encapsulates the packet and sends it to the agent running on the other node, which then decapsulates the original packet and sends it to the required pod.</p><p id="3bed98d3-e67e-4b7c-ab20-b6d5afcce03e" class="">Weave allocates the CIDR <code>10.32.0.0/12</code> for the entire cluster. This allows for IP range <code>10.32.0.1</code> to <code>10.47.255.254</code> (over a million IPs). Weave peers (agents) split this range among themselves.</p><p id="48e19925-c197-4cad-988b-f82ddc3a995f" class="">Weave can be deployed as a deamonset on each node. For installation steps, refer <a href="https://www.weave.works/docs/net/latest/kubernetes/kube-addon/#-installation">Integrating Kubernetes via the Addon (weave.works)</a> and <a href="https://github.com/weaveworks/weave/releases">https://github.com/weaveworks/weave/releases</a></p><h2 id="d42e470d-9d0b-470e-90f6-e9270659f5d2" class="">Service Networking</h2><figure id="512b3732-a9f5-401e-95d2-4daade267522" class="image"><a href="Kubernetes%20Networking%209edc8c9eff2441dc9a48815306231351/Untitled%209.png"><img style="width:576px" src="Kubernetes%20Networking%209edc8c9eff2441dc9a48815306231351/Untitled%209.png"/></a></figure><p id="1f534b66-7b65-46d4-ab03-7ea6bcf2ac3b" class="">In a cluster, pods communicate with each other through services, using their DNS names or IP addresses, instead of using the pod’s IP which can change if it restarts. <mark class="highlight-yellow_background">While a pod runs on a single node, a service spans the entire cluster and can be reached from any of the nodes.</mark> In the above image, the purple service is of type <code>NodePort</code>, which means it can be accessed at a given port from any node in the cluster. </p><p id="9e554a7a-5636-41c7-ab72-f7295d5124be" class="">Services are allocated IPs from a range configured in the <strong>KubeAPI</strong> server using the <code>service-cluster-ip-range</code> parameter. <mark class="highlight-yellow_background">The service networking CIDR should not overlap with the pod networking CIDR.</mark> </p><p id="513e0c2f-cfde-42d8-bf33-13a0cf1338d6" class="">Services in K8s are not resources like pods. <mark class="highlight-yellow_background">When a service object is created, the </mark><mark class="highlight-yellow_background"><strong>KubeProxy</strong></mark><mark class="highlight-yellow_background"> running on each node configures the IPTable rules on all of the nodes to forward the requests coming to the </mark><mark class="highlight-yellow_background"><code>IP:port</code></mark><mark class="highlight-yellow_background"> of the service to the </mark><mark class="highlight-yellow_background"><code>IP:port</code></mark><mark class="highlight-yellow_background"> of the backend pod configured in the service. </mark></p><figure id="b277e8fb-d2ba-443f-9378-c94b5635d20c" class="image"><a href="Kubernetes%20Networking%209edc8c9eff2441dc9a48815306231351/Untitled%2010.png"><img style="width:624px" src="Kubernetes%20Networking%209edc8c9eff2441dc9a48815306231351/Untitled%2010.png"/></a></figure><h2 id="0e3b86ed-b5af-4025-b17e-016bf07aedf1" class="">Important Commands</h2><ul id="a49f6d7f-aca0-42a0-8929-d5ef0b31cd25" class="bulleted-list"><li style="list-style-type:disc">Find which ports on the node is being used by what process - <code>netstat -nplt</code></li></ul><ul id="29e42ddb-6efc-4385-8bad-64837631b592" class="bulleted-list"><li style="list-style-type:disc">To find the interface used by k8s on the node, run <code>ip link</code> or <code>ip address</code> and search for node’s internal IP (found using <code>k get nodes -o wide</code>).</li></ul><ul id="432e6b90-d3b8-44b1-b153-cbcdaca89b7a" class="bulleted-list"><li style="list-style-type:disc">View the route table on a node - <code>route</code></li></ul><ul id="4c6d51dd-4123-4bb2-a01f-942c5846e596" class="bulleted-list"><li style="list-style-type:disc">Find the interface of the bridge network created by the container runtime on a node - <code>ip address show type bridge</code> </li></ul><ul id="5182c75e-f0a5-4475-b1f0-bea545a0b6e2" class="bulleted-list"><li style="list-style-type:disc">To find the range of IP addresses for the nodes in the cluster, run <code>ip address</code> and deduce the range for <code>eth0</code> interface.</li></ul><ul id="7a0099f7-14a9-4469-bac3-1f670733ea8e" class="bulleted-list"><li style="list-style-type:disc">To find the range of IP addresses for the pods in the cluster running a networking solution like WeaveNet, run <code>ip address</code> and deduce the range for <code>weave</code> interface.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

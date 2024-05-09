@@ -1,0 +1,678 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Kubectl Commands</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="693468ca-d8a7-4241-8cff-a079d7f7a0b5" class="page sans"><header><h1 class="page-title">Kubectl Commands</h1><p class="page-description"></p></header><div class="page-body"><ul id="e8d90122-8f3a-4923-aba3-4afed16bb353" class="bulleted-list"><li style="list-style-type:disc"><code>kubectl</code> can be replaced with <code>k</code> by using an alias</li></ul><ul id="231264bb-b474-4a99-a89d-255feef905b6" class="bulleted-list"><li style="list-style-type:disc"><code>kubectl</code> makes calls to the <code>kube-apiserver</code> behind the scenes</li></ul><h1 id="069d7682-970b-4cc0-a04b-78bd8d3ccfe5" class="">Get or List Resources</h1><ul id="8d0f5140-3c45-466a-ae9e-3b04d2c41628" class="bulleted-list"><li style="list-style-type:disc">List all K8s objects - <code>k get all</code></li></ul><ul id="73b525c3-b883-40ed-97fa-8d6af8feac4e" class="bulleted-list"><li style="list-style-type:disc">List nodes - <code>k get nodes</code></li></ul><ul id="6e186a00-5809-4d90-b48f-64e8a730743f" class="bulleted-list"><li style="list-style-type:disc">List pods - <code>k get pods</code></li></ul><ul id="c99c0c80-9cbb-4748-bec7-247e98e1378c" class="bulleted-list"><li style="list-style-type:disc">List pods with additional info - <code>k get pods -o wide</code></li></ul><ul id="da2ed2b3-ee9c-466c-ab91-4b42ff598bf5" class="bulleted-list"><li style="list-style-type:disc">List services - <code>k get services</code> or <code>k get svc</code></li></ul><ul id="26bc0d6b-2b18-4e9e-88c1-0e68c86a6d5f" class="bulleted-list"><li style="list-style-type:disc">List deployments - <code>k get deployments</code></li></ul><ul id="18870d8a-ce69-425e-94a6-3960249b054b" class="bulleted-list"><li style="list-style-type:disc">List replica sets - <code>k get replicasets</code></li></ul><ul id="9156676e-cfdc-465a-880a-2253aca71ecd" class="bulleted-list"><li style="list-style-type:disc">List replica sets with additional information - <code>k get replicasets -o wide</code></li></ul><ul id="8d9bcd52-1c22-4c91-83aa-aaf902054c77" class="bulleted-list"><li style="list-style-type:disc">List deployments in another namespace - <code>k get deployments --namespace=&lt;namespace&gt;</code> </li></ul><ul id="432fc54e-1ecb-4b81-93f0-79d11c75c49b" class="bulleted-list"><li style="list-style-type:disc">List pods in all the namespaces - <code>k get pods --all-namespaces</code></li></ul><ul id="ec00fc38-4b44-4b86-9c0e-780ce404eada" class="bulleted-list"><li style="list-style-type:disc">List service accounts - <code>k get serviceaccount</code></li></ul><ul id="9217f2a6-b5bc-453e-aa9e-81686b1aed69" class="bulleted-list"><li style="list-style-type:disc">List pods with label filter - <code>k get pod --selector key=value</code></li></ul><ul id="a23d8cab-da8c-4811-9b38-cdd48692fc4f" class="bulleted-list"><li style="list-style-type:disc">Get pods with multiple label filters - <code>k get pods --selector env=prod,bu=finance,tier=frontend</code></li></ul><ul id="d324477b-7ff0-4949-bc1f-ddbd3b36ab57" class="bulleted-list"><li style="list-style-type:disc">List all jobs - <code>k get jobs</code></li></ul><ul id="4e57031d-470e-4f34-8717-a0aa750e7c18" class="bulleted-list"><li style="list-style-type:disc">List all cron jobs - <code>k get cronjobs</code></li></ul><ul id="e47aaddd-d915-4393-8e3e-e14de44aef18" class="bulleted-list"><li style="list-style-type:disc">List all network policies - <code>k get networkpolicies</code></li></ul><ul id="a5f0aa90-6fe3-4614-b275-46fdc599a1c2" class="bulleted-list"><li style="list-style-type:disc">List all ingress resources - <code>k get ingress</code></li></ul><ul id="23300513-ba48-4c5a-90de-bc2c779ad390" class="bulleted-list"><li style="list-style-type:disc">List persistent volumes - <code>k get persistentvolume</code></li></ul><ul id="12f4379f-ea91-4d75-af98-ec889c77ba3b" class="bulleted-list"><li style="list-style-type:disc">List persistent volume claims - <code>k get persistentvolumeclaim</code></li></ul><ul id="f098ebb0-5ba0-47fc-bcf1-75c6fa112125" class="bulleted-list"><li style="list-style-type:disc">List all DaemonSets - <code>k get daemonsets</code> </li></ul><ul id="91fb85ca-8947-4eb0-8675-f072cbabc7e0" class="bulleted-list"><li style="list-style-type:disc">List cluster events - <code>k get events -o wide</code></li></ul><ul id="eaba682f-59a9-4752-a573-4720887ef69b" class="bulleted-list"><li style="list-style-type:disc">Get what node each pod is deployed on - <code>k get pods -o wide</code></li></ul><h1 id="68bc1e66-ed4a-4708-8d14-f0f8cdc8a2d1" class="">Describe</h1><ul id="ff9ad2fc-3cd4-4577-b5c4-9f7f9a3939a4" class="bulleted-list"><li style="list-style-type:disc">Describe a pod - <code>k describe pod &lt;pod-name&gt;</code></li></ul><ul id="7b4329cf-8a6b-4501-bbbc-80c204677c08" class="bulleted-list"><li style="list-style-type:disc">Describe a deployment - <code>k describe deployment &lt;deployment-name&gt;</code></li></ul><ul id="4a067771-a028-4c86-b8a1-7c72bfcebd2c" class="bulleted-list"><li style="list-style-type:disc">Describe a service account - <code>k describe serviceaccount &lt;service-account-name&gt;</code></li></ul><ul id="f6828e8d-6451-41f5-901d-5b619ceeb0da" class="bulleted-list"><li style="list-style-type:disc">Describe an ingress - <code>k describe ingress &lt;ingress-name&gt;</code></li></ul><ul id="3188db56-7e74-4258-990f-31f6e4be43a7" class="bulleted-list"><li style="list-style-type:disc">Describe a DaemonSet - <code>k describe daemonset &lt;daemonset-name&gt;</code> </li></ul><h1 id="63206316-35cd-4adc-8e82-1d944cfb4c48" class="">Create</h1><ul id="1fae9477-a9a9-45a6-ada0-f7a6131e41ec" class="bulleted-list"><li style="list-style-type:disc">Create a pod from an image - <code>k run &lt;pod-name&gt; --image &lt;image-name&gt;</code></li></ul><ul id="819576e2-f595-4cb9-b48f-8dc7f1bac314" class="bulleted-list"><li style="list-style-type:disc">Apply a K8s config.yaml file (declarative) - <code>k apply -f &lt;filename&gt;.yaml</code></li></ul><ul id="59b25c8d-5e40-4957-9be2-03b3640ca444" class="bulleted-list"><li style="list-style-type:disc">Create a namespace - <code>k create namespace &lt;namespace&gt;</code></li></ul><ul id="d43bb936-61c7-45ed-a8c7-58c5bb91fdf8" class="bulleted-list"><li style="list-style-type:disc">Create service account - <code>k create serviceaccount &lt;service-account-name&gt;</code></li></ul><h1 id="41184cc1-7824-420a-9b71-73b0778a5c6d" class="">Delete</h1><ul id="653e09f9-154a-4ad3-86b7-e50300e4ff47" class="bulleted-list"><li style="list-style-type:disc">Delete a pod - <code>k delete pod &lt;pod-name&gt;</code></li></ul><ul id="ae37ac40-840a-41b5-a3b5-f705d2d87ed2" class="bulleted-list"><li style="list-style-type:disc">Delete a replica set - <code>k delete replicaset &lt;replicaset-name&gt;</code></li></ul><ul id="af4a3008-7b7d-41f7-aa1a-039a4a31219b" class="bulleted-list"><li style="list-style-type:disc">Delete a deployment - <code>k delete deployment &lt;deployment-name&gt;</code></li></ul><ul id="20fb926a-6a52-4c4c-9e88-c6ebee6a0324" class="bulleted-list"><li style="list-style-type:disc">Delete a K8s resource from a config file - <code>k delete -f config.yaml</code></li></ul><h1 id="4f75ae28-c9f7-4f6b-a451-d06b72ed109d" class="">Logs</h1><ul id="73d79c74-b2de-4103-9101-599d2803af95" class="bulleted-list"><li style="list-style-type:disc">View logs of a pod - <code>k logs &lt;pod-name&gt;</code></li></ul><ul id="9c262058-0d60-4591-8800-df61bb732323" class="bulleted-list"><li style="list-style-type:disc">View live logs of a pod - <code>k logs -f &lt;pod-name&gt;</code></li></ul><ul id="d71259d0-f04d-4d6f-b92b-f66a70ebbc9f" class="bulleted-list"><li style="list-style-type:disc">View logs of a container in a multi-container pod (must specify the container name, otherwise the command will fail) - <code>k logs &lt;pod-name&gt; &lt;container-name&gt;</code></li></ul><ul id="212f4210-f5aa-4ff8-89d6-c9a9fa879c16" class="bulleted-list"><li style="list-style-type:disc">View logs of the previous container if the pod failed - <code>k logs &lt;pod-name&gt; --previous</code></li></ul><h1 id="943ebdb1-48c7-49b3-98f6-6a87cf0f080b" class="">Rollouts and Update</h1><ul id="5bb026d9-b937-4d4b-b4ee-831cf0566ecc" class="bulleted-list"><li style="list-style-type:disc"><code>k rollout status deployment/&lt;deployment-name&gt;</code> - view the status of rollout for a deployment</li></ul><ul id="a69c519b-6e6f-45aa-8408-0468fc12f5d8" class="bulleted-list"><li style="list-style-type:disc"><code>k rollout history deployment/&lt;deployment-name&gt;</code> - view the history of rollouts for a deployment</li></ul><ul id="c976a2e2-4763-4452-a927-76ae2dac90e9" class="bulleted-list"><li style="list-style-type:disc"><code>k rollout history deployment/&lt;deployment-name&gt; --revision=1</code> - view the history of rollouts for a deployment revision</li></ul><ul id="f0c668b1-ece6-4161-b9b9-f9b457ddb908" class="bulleted-list"><li style="list-style-type:disc"><code>k rollout undo deployment/&lt;deployment-name&gt;</code> - rollback a deployment</li></ul><ul id="6939520b-7910-4ca2-acdb-b995a122c657" class="bulleted-list"><li style="list-style-type:disc"><code>k rollout undo deployment/&lt;deployment-name&gt; --to-revision=1</code> - rollback a deployment to a specific revision</li></ul><h1 id="8ed8a086-49ba-45b9-b539-fa3193eeae9b" class="">Node Commands</h1><ul id="49003726-5f75-4081-a728-b10848d13526" class="bulleted-list"><li style="list-style-type:disc">Cordon a node (mark it unschedulable) - <code>k cordon &lt;node-name&gt;</code></li></ul><ul id="97ac0fc6-a9f0-4250-9c70-7f070407d1d8" class="bulleted-list"><li style="list-style-type:disc">Un-cordon a node (mark it schedulable) - <code>k uncordon &lt;node-name&gt;</code></li></ul><ul id="780e0f5f-b009-487f-b242-c77ff37152a3" class="bulleted-list"><li style="list-style-type:disc">Drain a node of all the pods - <code>k drain &lt;node-name&gt;</code></li></ul><ul id="3a639fda-a7be-478c-a211-683adf9aba46" class="bulleted-list"><li style="list-style-type:disc">Drain a node of all the pods except DaemonSets - <code>k drain &lt;node-name&gt; --ignore-daemonsets</code>    </li></ul><h1 id="f0b42c13-96b9-45e8-8912-7ca7c301f228" class="">Auth</h1><ul id="7c90dcaa-6fa2-43fd-aa3a-e2f887c613ad" class="bulleted-list"><li style="list-style-type:disc">View roles - <code>k get roles</code></li></ul><ul id="47c5578a-7c97-4a76-af67-8e2855b05daf" class="bulleted-list"><li style="list-style-type:disc">View role bindings - <code>k get rolebindings</code></li></ul><ul id="5a150abd-ff46-4e89-b085-cda649f73470" class="bulleted-list"><li style="list-style-type:disc">Check if you have access to perform an operation in K8s:<ul id="19328ab4-9a45-48ee-a925-6759b371dc60" class="bulleted-list"><li style="list-style-type:circle">Create deployments - <code>k auth can-i create deployments</code></li></ul><ul id="a30cebec-8cac-4644-9f4b-075513149ec0" class="bulleted-list"><li style="list-style-type:circle">Delete nodes in dev ns - <code>k auth can-i delete nodes -n dev</code> </li></ul></li></ul><ul id="188e95be-34d8-4ddf-b422-fa95a7eec472" class="bulleted-list"><li style="list-style-type:disc">Check if another user has access to perform an operation in K8s:<ul id="2e12b79d-e038-4333-8e06-a008073b5ae5" class="bulleted-list"><li style="list-style-type:circle">Create deployments - <code>k auth can-i create deployments --as dev-user</code>   </li></ul><ul id="49373af9-c9b3-4f88-aab0-8a475874a70c" class="bulleted-list"><li style="list-style-type:circle">Delete nodes in dev namespace - <code>k auth can-i delete nodes --as dev-user -n dev</code>    </li></ul></li></ul><ul id="7a9709bd-7ab7-4e20-9bd9-ea050772cffe" class="bulleted-list"><li style="list-style-type:disc">Check if a service account has access to perform an operation in K8s - <code>k auth can-i get pods --as=system:serviceaccount:default:&lt;serviceaccount-name&gt;</code></li></ul><h1 id="71f536d4-6d0b-46da-abf9-35e738e9eb15" class="">Config</h1><ul id="43a3e62e-46b7-4677-8d59-1a515f6f8c02" class="bulleted-list"><li style="list-style-type:disc">List all clusters - <code>k config get-clusters</code></li></ul><ul id="7843abab-3fca-4223-9596-08b6f6592eeb" class="bulleted-list"><li style="list-style-type:disc">Set context for a cluster - <code>k config use-context &lt;cluster-name&gt;</code></li></ul><h2 id="0250ae45-e5ff-4f84-96a8-b9a86c8e9441" class="">Certificates</h2><ul id="db4e1b51-7055-450a-a913-6b000d8246b2" class="bulleted-list"><li style="list-style-type:disc">List all CSR - <code>k get csr</code></li></ul><ul id="22d299d0-ef43-4335-a556-bed9b344043b" class="bulleted-list"><li style="list-style-type:disc">View a CSR in YAML format - <code>k get csr &lt;csr-name&gt; -o yaml</code></li></ul><ul id="73f7e263-e8a2-42d9-b840-9d23b8cb82fc" class="bulleted-list"><li style="list-style-type:disc">Delete a CSR - <code>k delete csr &lt;csr-name&gt;</code></li></ul><ul id="87015298-e67c-44c0-b3aa-cb398d693cdb" class="bulleted-list"><li style="list-style-type:disc">Approve a CSR - <code>k certificate approve &lt;csr-name&gt;</code></li></ul><ul id="3c0450b3-c266-4361-b58b-42381daa8110" class="bulleted-list"><li style="list-style-type:disc">Deny a CSR - <code>k certificate deny &lt;csr-name&gt;</code></li></ul><h1 id="2e94519f-d5db-404e-b4d6-191d71a4469a" class="">Output formats</h1><p id="03a5328b-2bb0-403c-b5ff-4cdea13cb285" class=""><code>-o json</code> - json output</p><p id="f547b0d9-1131-4b86-a0f3-b7b482d03df4" class=""><code>-o name</code> - only the resource name</p><p id="0359a9b0-29db-49ee-b181-46177fa387d1" class=""><code>-o wide</code> - extra info in plain text</p><p id="ebc0ba91-4ac8-47a3-a086-7b9ec3d226c4" class=""><code>-o yaml</code> - yaml output</p><h1 id="1f775b96-a3a1-42a6-8b4a-77bd8065de3e" class="">Useful Imperative Commands</h1><ul id="33b6065c-4a2a-43b7-becf-86c67735b41c" class="bulleted-list"><li style="list-style-type:disc">Create a pod - <code>k run &lt;pod-name&gt; --image=&lt;image-name&gt; --command -- &lt;command-with-args&gt;</code></li></ul><ul id="80594bb6-9824-4660-8c9f-838c333bf047" class="bulleted-list"><li style="list-style-type:disc">Create a deployment - <code>k create deployment &lt;deployment-name&gt; --image &lt;image-name&gt; --replicas 3</code></li></ul><ul id="f4214cca-5bd0-424f-88da-d73505912747" class="bulleted-list"><li style="list-style-type:disc">Create a service for a deployment - <code>k expose deployment &lt;deployment-name&gt; --port 80 --name &lt;service-name&gt;</code></li></ul><ul id="32cc3519-3abc-4a30-832c-b3733ad7ed9e" class="bulleted-list"><li style="list-style-type:disc">Create a service for a pod - <code>k expose pod &lt;pod-name&gt; --port 80 --name &lt;service-name&gt;</code></li></ul><ul id="91bdeded-e8b6-455d-9016-8339a2fb4bfe" class="bulleted-list"><li style="list-style-type:disc">Edit a deployment (in memory) - <code>k edit deployment &lt;deployment-name&gt;</code></li></ul><ul id="36473137-c266-4cad-84ec-475d0f830d87" class="bulleted-list"><li style="list-style-type:disc">Scale a deployment - <code>k scale deployment &lt;deployment-name&gt; --replicas 3</code></li></ul><ul id="3462b896-8eda-4ba6-a628-eb7a8e2cfa68" class="bulleted-list"><li style="list-style-type:disc">Update the image in a deployment - <code>k set image deployment &lt;deployment-name&gt; &lt;old-image&gt;=&lt;new-image&gt;</code></li></ul><ul id="acfcbd41-859b-4def-9177-d1c34cf31461" class="bulleted-list"><li style="list-style-type:disc">Create resources from a config file - <code>k create -f filename.yaml</code></li></ul><ul id="a2d39906-a78c-4a2d-aa58-6fe8b0f524f9" class="bulleted-list"><li style="list-style-type:disc">Update resources from a config file - <code>k replace -f filename.yaml</code></li></ul><ul id="c3d41932-ec78-4556-a712-94d2a38e143f" class="bulleted-list"><li style="list-style-type:disc">Delete and recreate resources from a config file - <code>k replace --force -f filename.yaml</code></li></ul><ul id="5f67a85f-d3b4-4b8b-b0b2-1d8c7f099bcc" class="bulleted-list"><li style="list-style-type:disc">Edit a deployment (doesn’t work for pods as they require recreation) - <code>k edit deployment &lt;deployment-name&gt;</code></li></ul><h1 id="9cac8251-9bc8-4b27-a29e-9cecc409b9b3" class="">Handy Commands</h1><ul id="da3b9040-8c46-464b-b28c-af25062c205e" class="bulleted-list"><li style="list-style-type:disc">Get the config YAML of a pod - <br/><br/><code>k get pod &lt;pod-name&gt; -o yaml &gt; pod.yaml</code> </li></ul><ul id="fb8b27c8-7d22-45b9-8d0f-5205e550e727" class="bulleted-list"><li style="list-style-type:disc">Get the config YAML of a deployment - <br/><br/><code>k get deployment &lt;deployment-name&gt; -o yaml &gt; deployment.yaml</code> </li></ul><ul id="0600f7a6-e978-4fea-984d-7fe6e027b996" class="bulleted-list"><li style="list-style-type:disc">Create a sample config YAML file for a pod - <code>k run &lt;pod-name&gt; --image &lt;image-name&gt; --dry-run=client -o yaml &gt; filename.yaml</code></li></ul><ul id="b882c91c-bb5f-4e95-a18e-4352d1f756ef" class="bulleted-list"><li style="list-style-type:disc">Create a sample config YAML file for a deployment - <code>k create deployment &lt;deployment-name&gt; --image &lt;image-name&gt; --dry-run=client -o yaml &gt; filename.yaml</code></li></ul><ul id="88527ad0-c6e5-4241-a36f-9027a75ac4bd" class="bulleted-list"><li style="list-style-type:disc">Create a sample config YAML file for a service - <code>k expose deployment &lt;deployment-name&gt; --port 80 --dry-run=client -o yaml &gt; filename.yaml</code>     </li></ul><h2 id="813d8b99-0662-4675-b7c1-7d543e33450a" class="">JSON Path in Kubectl</h2><ul id="9008bab9-7c45-491b-9770-6e4c86b5a989" class="bulleted-list"><li style="list-style-type:disc">Get images of all the pods - <code>k get pods -o jsonpath=&#x27;{.items[0].spec.containers[0].image}&#x27;</code></li></ul><h2 id="0d192898-2e59-452e-ba8a-941d89b05c46" class="">Metrics</h2><ul id="f4e0f33b-528e-4e44-8548-bcc92536e47f" class="bulleted-list"><li style="list-style-type:disc">Get top nodes by memory - <code>k top nodes --sort-by memory</code></li></ul><ul id="4de31970-dbcb-4bdf-9b68-8cfac978ca09" class="bulleted-list"><li style="list-style-type:disc">Get top nodes by CPU for a context - <code>k --context &lt;context&gt; top nodes --sort-by cpu</code></li></ul><p id="e72f7042-bb5c-4711-983e-d7da083f7328" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

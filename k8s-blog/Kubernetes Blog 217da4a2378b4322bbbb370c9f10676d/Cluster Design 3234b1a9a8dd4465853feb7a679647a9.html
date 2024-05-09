@@ -1,0 +1,685 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Cluster Design</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="3234b1a9-a8dd-4465-853f-eb7a679647a9" class="page sans"><header><h1 class="page-title">Cluster Design</h1><p class="page-description"></p></header><div class="page-body"><nav id="b4b90e4e-beb0-4b2a-8cc6-b6084b11fbd4" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#27b40fdc-d96c-415e-8e29-9782956818e6">Basics</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3b7e15f3-f77f-42ff-9597-216c99a5fdfb">Deploying production-grade clusters</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#bb43c8cd-35db-42a4-aa7b-5d0f1bb73ff7">High Availability</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#941aa784-3f42-40a0-ab26-d05f77942fe4">API Server</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1ad65e80-ca73-4d5c-8bf7-6cffc798cb56">Controller Manager and Scheduler</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0ec16261-c101-4d64-a23b-410b10dc9af8">ETCD</a></div></nav><h2 id="27b40fdc-d96c-415e-8e29-9782956818e6" class="">Basics</h2><ul id="1544aa3a-5565-4489-8f62-381c3a0196f2" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">K8s is not supported on Windows</mark>. You need to use a virtualization software to run a linux OS on it to support K8s.</li></ul><ul id="4fc4d473-83f8-4a26-b71d-2e05069a84b6" class="bulleted-list"><li style="list-style-type:disc"><strong>Minikube</strong> uses a virtualization software to run VMs that host k8s components. This allows us to deploy single node clusters easily.</li></ul><ul id="ad47797f-0d9b-41e3-9367-80f6976c6ecf" class="bulleted-list"><li style="list-style-type:disc"><strong>KubeAdm</strong> deploys single or multi node cluster on provisioned VMs for development purposes.</li></ul><h2 id="3b7e15f3-f77f-42ff-9597-216c99a5fdfb" class="">Deploying production-grade clusters</h2><p id="29e86ab0-8ce7-4026-ad0a-b78e5e5c2a63" class="">Production grade clusters can be either setup from scratch (turnkey solution) or they can be managed by a cloud provider (hosted solution).</p><div id="7f1e137f-ac56-408c-9765-c50b24419d2f" class="column-list"><div id="338d56af-a0e8-48fc-9dfb-6928b08023cc" style="width:50%" class="column"><p id="b1a7ad1e-ef29-4a2c-a88a-db15d3089237" class=""><strong>Turnkey Solution</strong></p><ul id="f378b46b-ad31-4d1a-bed7-e8d64bed66eb" class="bulleted-list"><li style="list-style-type:disc">You provision VMs</li></ul><ul id="5918171d-fc4c-4df6-b74e-3bdf520a35ad" class="bulleted-list"><li style="list-style-type:disc">You configure VMs</li></ul><ul id="fb6ab11e-08a5-4ecd-a837-15b2da5658f1" class="bulleted-list"><li style="list-style-type:disc">You use scripts to deploy cluster</li></ul><ul id="5817f190-5b78-4abc-b37c-9f2a2a48a368" class="bulleted-list"><li style="list-style-type:disc">You maintain VMs yourself</li></ul><ul id="48f2a0f4-a203-46d0-8474-77e177d9c35d" class="bulleted-list"><li style="list-style-type:disc">Eg: OpenShift, Vagrant, etc.</li></ul></div><div id="009aedcd-77bb-417a-8584-38802f9378d4" style="width:50%" class="column"><p id="649ec5be-e46f-4596-8abd-912ea8239033" class=""><strong>Hosted Solution</strong></p><ul id="4979bdea-8d42-449d-a644-84b3bd56fc95" class="bulleted-list"><li style="list-style-type:disc">Kubernetes-as-a-Service</li></ul><ul id="d40bb399-e05e-4080-b321-5d9bc5021372" class="bulleted-list"><li style="list-style-type:disc">Provider provisions and configures VMs</li></ul><ul id="33090320-5e29-4757-886e-d9662039b5ab" class="bulleted-list"><li style="list-style-type:disc">Provider installs Kubernetes</li></ul><ul id="f728c46f-bd7a-4923-b224-bf7f0c92bb47" class="bulleted-list"><li style="list-style-type:disc">Provider maintains VMs</li></ul><ul id="f027d1da-451c-4a98-963f-a33bdb960878" class="bulleted-list"><li style="list-style-type:disc">Eg: EKS, GKE, OpenShift Online, AKS</li></ul></div></div><h2 id="bb43c8cd-35db-42a4-aa7b-5d0f1bb73ff7" class="">High Availability</h2><p id="7b2f83fa-da3d-423f-8682-a163fa9383dd" class=""><strong>To avoid single point of failure, production grade clusters should have at least 3 master nodes.</strong> Consider a cluster with 2 master nodes. </p><h3 id="941aa784-3f42-40a0-ab26-d05f77942fe4" class="">API Server</h3><p id="e84557fd-8033-463d-9bd3-f229459f4de1" class="">The <strong>API Server</strong> is just a REST API server, it can be kept running on both the masters in an <strong>active-active mode</strong>. To distribute the incoming requests to both the KubeAPI servers, use a load balancer like <code>nginx</code> in front and point the <code>kubectl</code> utility to the load balancer (by configuring <a href="KubeConfig%20723452923e9f4fd49d2931f9730ec83a.html">KubeConfig</a>).</p><figure id="7d333ea4-0bd2-4286-9841-965500558279" class="image"><a href="Cluster%20Design%203234b1a9a8dd4465853feb7a679647a9/Untitled.png"><img style="width:576px" src="Cluster%20Design%203234b1a9a8dd4465853feb7a679647a9/Untitled.png"/></a></figure><h3 id="1ad65e80-ca73-4d5c-8bf7-6cffc798cb56" class="">Controller Manager and Scheduler</h3><p id="266a7e78-3d8a-4270-a094-2be72a5065a8" class="">The <strong>Controller Manager</strong> and the <strong>Scheduler</strong> look after the state of the cluster and make necessary changes. Therefore to avoid duplicate processing, they run in an <strong>active-passive mode</strong>.</p><div id="e64bfe7a-812f-4b0a-abbc-ae432878a023" class="column-list"><div id="1457cbf8-51f7-4c38-81ec-294261c50f58" style="width:50%" class="column"><p id="0cf4ce2c-03b3-4fee-9c5b-2c791a9b7575" class="">The instance that will be the active one is decided based on a <strong>leader-election</strong> approach. The two instances compete to lease the endpoint. The instance that leases it first gets to be the master for the lease duration. The active instance needs to renew the lease before the deadline is reached. Also, the passive instance retries to get a lease every <code>leader-elect-retry-period</code>. This way if the current active instance crashes, the standby instance can become active.</p></div><div id="04076cdd-b660-4ad4-9cdc-022b25655a51" style="width:50%" class="column"><figure id="7f5f99dd-20ea-4394-b208-2ff44c2d231e" class="image"><a href="Cluster%20Design%203234b1a9a8dd4465853feb7a679647a9/Untitled%201.png"><img style="width:432px" src="Cluster%20Design%203234b1a9a8dd4465853feb7a679647a9/Untitled%201.png"/></a></figure></div></div><p id="86f7571d-a4ef-439d-847e-f1c2328f243a" class="">The <code>kube-controller-manager</code> and the <code>kube-scheduler</code> have leader election turned on by default.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="02548748-3143-43d8-9bb7-e12c3b8c2923" class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">kube-controller-manager --leader-elect true [other options]
+												--leader-elect-lease-duration 15s
+												--leader-elect-renew-deadline 10s
+												--leader-elect-retry-period 2s
+
+kube-scheduler --leader-elect true [other options]
+							 --leader-elect-lease-duration 15s
+							 --leader-elect-renew-deadline 10s
+							 --leader-elect-retry-period 2s</code></pre><h3 id="0ec16261-c101-4d64-a23b-410b10dc9af8" class="">ETCD</h3><p id="00e97d60-85c5-4bb0-a7d7-2191fd48ccc0" class="">The <strong>ETCD Server</strong> can be present in the master node (<strong>stacked topology</strong>) or externally on other servers (<strong>external ETCD topology</strong>). Stacked topology is easier to setup and manage but if both the master nodes are down, then all the control plane components along with the state of the cluster (ETCD servers) will be lost and thus redundancy will be compromised.</p><div id="456fdec7-552c-4608-ac06-23c62654f705" class="column-list"><div id="80ee2335-2961-46f3-a355-2d76f98606a2" style="width:50%" class="column"><figure id="a095f6c6-6bd4-4d3b-aaec-e2df7a13b625" class="image"><a href="Cluster%20Design%203234b1a9a8dd4465853feb7a679647a9/Untitled%202.png"><img style="width:336px" src="Cluster%20Design%203234b1a9a8dd4465853feb7a679647a9/Untitled%202.png"/></a></figure></div><div id="c35d5645-5e6b-4c6d-b60a-7c5a709252f2" style="width:49.99999999999999%" class="column"><figure id="3404ae5b-3bcd-41d7-a289-2e7de8b9c90f" class="image"><a href="Cluster%20Design%203234b1a9a8dd4465853feb7a679647a9/Untitled%203.png"><img style="width:966px" src="Cluster%20Design%203234b1a9a8dd4465853feb7a679647a9/Untitled%203.png"/></a></figure></div></div><p id="70b7b2d0-a5c3-43f7-8fcb-7bae4917a2b8" class=""><mark class="highlight-yellow_background">Regardless of the topology, both the API server instances should be able to reach both the ETCD servers as it is a distributed database.</mark></p><figure id="79838560-cf6f-42fa-b857-bc29c14ed20b" class="image"><a href="Cluster%20Design%203234b1a9a8dd4465853feb7a679647a9/Untitled%204.png"><img style="width:624px" src="Cluster%20Design%203234b1a9a8dd4465853feb7a679647a9/Untitled%204.png"/></a></figure><p id="0616c348-f5f9-42c6-8adf-7529725f6fdf" class="">ETCD is distributed datastore, which means it replicates the data across all its instances. It ensures <strong>strongly consistent writes by electing a leader ETCD instance (master) which processes the writes</strong>. <mark class="highlight-yellow_background">If the writes go to any of the slave instances, they are forwarded to the master instance.</mark> Whenever writes are processed, the master ensures that the data is updated on all of the slaves. <strong>Reads can take place on any instance.</strong></p><p id="9c2a2be2-79fa-451d-aeef-28ffa887a733" class="">When setting up the ETCD cluster for HA, use the <code>initial-cluster</code> option to configure the ETCD peers in the cluster.</p><figure id="78bca4d3-827e-4957-8cbb-f24f1836af0b" class="image"><a href="Cluster%20Design%203234b1a9a8dd4465853feb7a679647a9/Untitled%205.png"><img style="width:672px" src="Cluster%20Design%203234b1a9a8dd4465853feb7a679647a9/Untitled%205.png"/></a></figure><p id="7965c972-202d-4747-9816-fbd7eaf0eb7b" class="">ETCD instances elect the leader among them using <strong>RAFT protocol</strong>. If the leader doesn’t regularly notify the other instances of its role regularly, it is assumed to have died and a new leader is elected.</p><p id="c5f33984-a3a6-4b81-abb4-f2c1c0412f06" class=""><mark class="highlight-yellow_background">A write operation is considered complete only if it can be written to a majority (</mark><mark class="highlight-yellow_background"><strong>quorum</strong></mark><mark class="highlight-yellow_background">) of the ETCD instances (to ensure that a write goes through if a minority of ETCD instances goes down). If a dead instance comes back up, the write is propagated to it as well.</mark></p><div id="00e45333-9f5b-447e-8c5b-66e3d1fd5958" class="column-list"><div id="9c3a396b-decb-4867-90d5-8370a30013c1" style="width:62.5%" class="column"><p id="9d489fb2-ed4e-433b-a078-dc53d0c8a085" class=""><code>Quorum = floor(N/2 + 1)</code>, where N is the total number of ETCD instances, is the minimum number of ETCD instances that should be up and running for the cluster to perform a successful write.</p><p id="56ec921b-6148-4b33-855e-a85e534df9e5" class=""><code>N = 2 =&gt; Quorum = 2</code>, which means quorum cannot be met even if a single instance goes down. So, having 2 instances is the same as having a single instance (0 fault tolerance). So, <strong>we should have at least 3 instances in the ETCD cluster as it offers fault tolerance of 1 instance.</strong></p><p id="c961ca37-7c24-4e9e-baa4-fbc9b0bd0227" class="">Considering 1 ETCD instance per master node, <strong>it is recommended to have odd number of master nodes in the cluster.</strong> This is because, during a network segmentation, there is higher changes of quorum being met for one of the network segments.</p></div><div id="f2f448cd-a51d-4971-b9c4-5f8773de50ca" style="width:37.5%" class="column"><figure id="a5f5ebc0-b84b-41e2-a538-38bf6d698d02" class="image"><a href="Cluster%20Design%203234b1a9a8dd4465853feb7a679647a9/Untitled%206.png"><img style="width:590px" src="Cluster%20Design%203234b1a9a8dd4465853feb7a679647a9/Untitled%206.png"/></a></figure></div></div><p id="71b5ebba-1558-4d73-a3f2-37383a6df3cd" class="">Since 1 and 2 nodes don’t provide any fault tolerance, the minimum number of nodes for fault tolerance is 3. Also, the even number of nodes can leave the cluster without quorum in certain network partitions. So, <strong>the most commonly used node count is 3 (good for most use cases) and 5 (higher fault tolerance). </strong></p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

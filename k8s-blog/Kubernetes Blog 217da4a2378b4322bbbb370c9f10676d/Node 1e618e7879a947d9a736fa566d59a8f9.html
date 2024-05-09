@@ -1,0 +1,677 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Node</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1e618e78-79a9-47d9-a736-fa566d59a8f9" class="page sans"><header><h1 class="page-title">Node</h1><p class="page-description"></p></header><div class="page-body"><ul id="37d88cb7-b3d7-477b-8d5c-1713c43e9163" class="bulleted-list"><li style="list-style-type:disc">A physical or virtual machine on which Kubernetes is installed</li></ul><ul id="676d7609-a908-44f7-8ebc-b30a28c4790d" class="bulleted-list"><li style="list-style-type:disc"><strong>Nodes are cluster scoped. They are not scoped within a namespace.</strong></li></ul><ul id="83ecb51b-962a-4d25-8f68-bafe76553397" class="bulleted-list"><li style="list-style-type:disc">When you install Kubernetes on a node, the following components are installed. Some of them are used in worker nodes and the rest are used in master nodes.<ul id="a2a61c96-ed69-4c22-af24-0fadea2bde00" class="bulleted-list"><li style="list-style-type:circle">API Server</li></ul><ul id="b2e72aad-af57-48cb-ab4d-e723d548aa65" class="bulleted-list"><li style="list-style-type:circle"><code>etcd</code> Service</li></ul><ul id="188aca0d-1f81-47f3-b5a1-c0b69aeac70d" class="bulleted-list"><li style="list-style-type:circle">Kubelet Service</li></ul><ul id="9edc2239-653c-4b31-b738-f370896d58f8" class="bulleted-list"><li style="list-style-type:circle">Container Runtime</li></ul><ul id="6c5a9b88-ba2b-45d4-89df-7f0a0856d316" class="bulleted-list"><li style="list-style-type:circle">Controller</li></ul><ul id="592266cf-1115-4afb-ac45-e4bfeb05714a" class="bulleted-list"><li style="list-style-type:circle">Scheduler</li></ul></li></ul><ul id="4b28fd06-231b-4d3c-9488-97344fde9632" class="bulleted-list"><li style="list-style-type:disc">A <strong>cluster</strong> is a collection of nodes grouped together</li></ul><h2 id="22178263-d231-4519-8d56-6d53ef0c9e48" class="">Worker Nodes</h2><figure id="1a1cc225-3ed6-46f7-a4f2-23ae2ea8f928" class="image"><a href="Node%201e618e7879a947d9a736fa566d59a8f9/Untitled.png"><img style="width:528px" src="Node%201e618e7879a947d9a736fa566d59a8f9/Untitled.png"/></a></figure><ul id="0f3e3840-e999-4c03-9ce4-d32fa4f1ef57" class="bulleted-list"><li style="list-style-type:disc">These nodes do the actual work so they <mark class="highlight-yellow_background">need to have more resources</mark></li></ul><ul id="9e294f79-a533-4d56-becd-f76a7d0c4ae9" class="bulleted-list"><li style="list-style-type:disc">Each worker node has multiple pods running on it</li></ul><ul id="ece2a6ab-4f49-4309-9d82-ad3973389052" class="bulleted-list"><li style="list-style-type:disc">3 processes must be installed on every worker node<ul id="d21e7d54-c8bc-4d44-85ee-2af55ee0d20c" class="bulleted-list"><li style="list-style-type:circle"><strong>Container Runtime</strong> (eg. docker)</li></ul><ul id="d161679a-05a7-4af5-a7a3-3e702769f687" class="bulleted-list"><li style="list-style-type:circle"><strong>Kubelet</strong><ul id="2f34971e-4f43-4d10-ac87-4a841403de8b" class="bulleted-list"><li style="list-style-type:square">process of Kubernetes</li></ul><ul id="c3748893-6cda-43d2-b745-92e67833ab84" class="bulleted-list"><li style="list-style-type:square">starts pods and runs containers inside them</li></ul><ul id="df719810-1b6c-4724-974f-fb5b1e6beacf" class="bulleted-list"><li style="list-style-type:square">allocates resources from the node to the container</li></ul></li></ul><ul id="4580841d-8556-4a27-af56-e095244835f7" class="bulleted-list"><li style="list-style-type:circle"><strong>Kubeproxy</strong><ul id="f5687ed2-91bc-4d84-9b71-8fafc77b0561" class="bulleted-list"><li style="list-style-type:square">process of Kubernetes</li></ul><ul id="b672909f-d90c-4863-926c-4a73ba0efde6" class="bulleted-list"><li style="list-style-type:square">forwards the requests to pods intelligently</li></ul><ul id="eacf47cb-9e4e-4ba2-8724-e3a60c6cb00b" class="bulleted-list"><li style="list-style-type:square">Image<ul id="06edfb06-1f55-4aa4-a7b6-c45da8004fb7" class="bulleted-list"><li style="list-style-type:disc">Kubeproxy forwards requests to the DB pod running on the same node to minimize network overhead.<figure id="bc25df8a-a578-43a0-8078-c9d7e17d9825" class="image"><a href="Node%201e618e7879a947d9a736fa566d59a8f9/Untitled%201.png"><img style="width:384px" src="Node%201e618e7879a947d9a736fa566d59a8f9/Untitled%201.png"/></a></figure></li></ul></li></ul></li></ul></li></ul><h2 id="b1898623-47bc-4403-9b8c-dd55d61dd079" class="">Master Nodes</h2><figure id="28e58a6f-cd18-4109-86b7-c28dd778a452" class="image"><a href="Node%201e618e7879a947d9a736fa566d59a8f9/Untitled%202.png"><img style="width:576px" src="Node%201e618e7879a947d9a736fa566d59a8f9/Untitled%202.png"/></a></figure><ul id="1d2f2705-83d4-417d-97f8-d66ecf50019a" class="bulleted-list"><li style="list-style-type:disc">Control the cluster state &amp; manage worker nodes</li></ul><ul id="ec32d12b-899b-493e-98d0-f8172878fd21" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">Need less resources</mark> as they don&#x27;t do the actual work</li></ul><ul id="07beb550-d7cc-4e96-b746-11f4866ae61c" class="bulleted-list"><li style="list-style-type:disc">Multi-master setup is often used for fault tolerance</li></ul><ul id="326ac9ad-0674-4fdf-a996-d4f047124f4d" class="bulleted-list"><li style="list-style-type:disc">4 processes run on every master node<ul id="bed9984e-0876-4dbd-bdbe-688be03358ef" class="bulleted-list"><li style="list-style-type:circle"><strong>API Server</strong><ul id="72767825-8efa-4244-9ea1-46be9d23dd74" class="bulleted-list"><li style="list-style-type:square">User interacts with the cluster via the API server using a client (Kubernetes Dashboard, CLI, or Kubernetes API)</li></ul><ul id="77cb10bd-7dda-4908-8733-b952ba6dfa37" class="bulleted-list"><li style="list-style-type:square">Cluster gateway (acts as the entry point into the cluster)</li></ul><ul id="acb3a98b-f3d7-4978-b034-9fe47f3e1992" class="bulleted-list"><li style="list-style-type:square">Can be used for authentication</li></ul><figure id="28f66df5-b67d-48d2-802e-d0001580e9dd" class="image"><a href="Node%201e618e7879a947d9a736fa566d59a8f9/Untitled%203.png"><img style="width:576px" src="Node%201e618e7879a947d9a736fa566d59a8f9/Untitled%203.png"/></a></figure></li></ul><ul id="69af2b80-c37e-43bf-957f-91a30780afa6" class="bulleted-list"><li style="list-style-type:circle"><strong>Scheduler</strong><ul id="b8c0b3ef-7d94-46ea-869a-925039cfab45" class="bulleted-list"><li style="list-style-type:square">Decides the node where the new pod should be scheduled and sends a request to the Kubelet to start a pod.</li></ul><figure id="d962addf-90df-4093-9a38-679dd027b6a8" class="image"><a href="Node%201e618e7879a947d9a736fa566d59a8f9/Untitled%204.png"><img style="width:576px" src="Node%201e618e7879a947d9a736fa566d59a8f9/Untitled%204.png"/></a></figure></li></ul><ul id="9e67291b-444d-4089-b73a-fb46495b2f1b" class="bulleted-list"><li style="list-style-type:circle"><strong>Controller</strong><ul id="06cbf299-0876-4aed-984e-b5357c4fbfc8" class="bulleted-list"><li style="list-style-type:square">Detects state changes like crashing of pods</li></ul><ul id="6d2d91f8-7c86-45d3-85a0-22507d926b1e" class="bulleted-list"><li style="list-style-type:square">If a pod dies, it requests scheduler to schedule starting up of a new pod</li></ul><figure id="33632f3c-0bd5-47a5-852d-3d6dd80fa821" class="image"><a href="Node%201e618e7879a947d9a736fa566d59a8f9/Untitled%205.png"><img style="width:576px" src="Node%201e618e7879a947d9a736fa566d59a8f9/Untitled%205.png"/></a></figure></li></ul><ul id="b7779429-49b4-4be9-9d92-62bca9654af4" class="bulleted-list"><li style="list-style-type:circle"><strong>etcd</strong><ul id="d844c75b-1047-4694-81e4-cc7e8fa5ac70" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-yellow_background">Key-value store of the cluster state</mark> (also known as cluster brain)</li></ul><ul id="3868f540-ba47-41ed-92ba-d8e682a0daca" class="bulleted-list"><li style="list-style-type:square">Cluster changes get stored in the etcd</li></ul><ul id="9568accf-f8c8-4fa5-a665-b8a02e6c2ed8" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-yellow_background">In multi-master configuration, etcd is a distributed key-value store</mark></li></ul><ul id="6d2f4be3-9c35-4233-b4c7-094f828f4a4c" class="bulleted-list"><li style="list-style-type:square">Application data is not stored in the etcd</li></ul></li></ul></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

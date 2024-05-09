@@ -1,0 +1,696 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Kubernetes Blog</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="217da4a2-378b-4322-bbbb-370c9f10676d" class="page sans"><header><img class="page-cover-image" src="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/kubernetes-cover.png" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">⚓</span></div><h1 class="page-title">Kubernetes Blog</h1><p class="page-description"></p></header><div class="page-body"><figure id="360311e4-fb3c-4291-90fe-e4c612635f08" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Intro%20360311e4fb3c429190fee4c612635f08.html">Intro</a></figure><figure id="d1d4f41c-dd1e-43cc-906e-f665c1608573" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/YAML%20Definition%20File%20d1d4f41cdd1e43cc906ef665c1608573.html">YAML Definition File</a></figure><figure id="8cfedb84-3358-4d03-aa87-d708ada350f3" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Labels,%20Selectors%20and%20Annotations%208cfedb8433584d03aa87d708ada350f3.html">Labels, Selectors and Annotations</a></figure><figure id="cbd27b60-cf95-4529-939e-0f90877f6a97" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Networking%20in%20Kubernetes%20cbd27b60cf954529939e0f90877f6a97.html">Networking in Kubernetes</a></figure><figure id="693468ca-d8a7-4241-8cff-a079d7f7a0b5" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Kubectl%20Commands%20693468cad8a742418cffa079d7f7a0b5.html">Kubectl Commands</a></figure><h1 id="bae20131-8f29-4a50-a512-77a1b0e36de0" class="">Objects</h1><div id="e6dda63e-2634-43d6-bd84-20d9b3849f04" class="column-list"><div id="46806083-8d08-4586-a9d7-c564d96a5b70" style="width:50%" class="column"><figure id="1e618e78-79a9-47d9-a736-fa566d59a8f9" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Node%201e618e7879a947d9a736fa566d59a8f9.html">Node</a></figure><figure id="fc9a6327-ccd8-4f51-8d8d-31afe1a6c1ef" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Pod%20fc9a6327ccd84f518d8d31afe1a6c1ef.html">Pod</a></figure><figure id="091b4a48-2cb4-403c-99c3-434638687e3b" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/ReplicaSet%20091b4a482cb4403c99c3434638687e3b.html">ReplicaSet</a></figure><figure id="78fa90e3-6517-468d-8ad7-a91e5695ebb0" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Deployment%2078fa90e36517468d8ad7a91e5695ebb0.html">Deployment</a></figure><figure id="147a6165-d3ab-48dd-9a8f-a3de1bf7e59a" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Service%20147a6165d3ab48dd9a8fa3de1bf7e59a.html">Service</a></figure><figure id="e1c64b14-c35e-46c2-8878-62bebe0e68b6" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Namespaces%20e1c64b14c35e46c2887862bebe0e68b6.html">Namespaces</a></figure><figure id="795f0eea-e629-4e1b-a036-eed8dab8ae43" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/NetworkPolicies%20795f0eeae6294e1ba036eed8dab8ae43.html">NetworkPolicies</a></figure><figure id="b3473c53-53cc-4e6a-8743-a2436adef1b9" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/ConfigMap%20b3473c5353cc4e6a8743a2436adef1b9.html">ConfigMap</a></figure><figure id="7e5a04cf-01ab-46d8-9883-d42ca92f9d7d" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Secret%207e5a04cf01ab46d89883d42ca92f9d7d.html">Secret</a></figure><figure id="d31b3372-cdf9-4b0a-9ce5-a2c07112fae6" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Volume%20d31b3372cdf94b0a9ce5a2c07112fae6.html">Volume</a></figure></div><div id="945c3818-4cd0-44b5-89b3-1eba9ddddd92" style="width:50%" class="column"><figure id="c12257e8-7394-4bf2-8abb-7d09500d62ad" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Storage%20Classes%20c12257e873944bf28abb7d09500d62ad.html">Storage Classes</a></figure><figure id="7a4748f0-c61b-4a47-bff5-3787f4b88dea" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/StatefulSets%207a4748f0c61b4a47bff53787f4b88dea.html">StatefulSets</a></figure><figure id="5f147ef0-28a8-4cbf-b703-f29d44873ee8" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Jobs%205f147ef028a84cbfb703f29d44873ee8.html">Jobs</a></figure><figure id="248e59bc-f0ad-478b-a37b-20a0969cb8e3" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Cron%20Jobs%20248e59bcf0ad478ba37b20a0969cb8e3.html">Cron Jobs</a></figure><figure id="16944ef3-39e7-4ab0-a318-22350a1a2f57" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Ingress%2016944ef339e74ab0a31822350a1a2f57.html">Ingress</a></figure><figure id="a0ed7ff5-8b60-4fbe-bda6-1542a095211e" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Service%20Account%20a0ed7ff58b604fbebda61542a095211e.html">Service Account</a></figure><figure id="6095b55d-d660-48e2-9f85-f1afde55831d" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Custom%20Resource%20Definition%20(CRD)%206095b55dd66048e29f85f1afde55831d.html">Custom Resource Definition (CRD)</a></figure><figure id="dac6eb61-bf07-4386-b1a6-8f3552353420" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/DaemonSet%20dac6eb61bf074386b1a68f3552353420.html">DaemonSet</a></figure><figure id="17366c8d-5f85-4d8c-a9fb-26b31d076d07" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Static%20Pods%2017366c8d5f854d8ca9fb26b31d076d07.html">Static Pods</a></figure><figure id="dcb7a406-652e-4ae8-b831-932eb516b5f2" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Operators%20dcb7a406652e4ae8b831932eb516b5f2.html">Operators</a></figure></div></div><hr id="d312adf1-6e43-4e04-9102-f4201aa42aad"/><div id="9bf384bb-c9e9-40a7-bed5-a2e1ade66e0d" class="column-list"><div id="fab5fb26-e488-4432-ba5c-18584c5d64a0" style="width:33.33333333333333%" class="column"><h1 id="ddc4ccf8-b816-416f-9c9a-2febaf8af30b" class="">Concepts</h1><figure id="14e285df-ba71-4e13-bc7e-05ca7d0688fb" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Environment%20Variables%2014e285dfba714e13bc7e05ca7d0688fb.html">Environment Variables</a></figure><figure id="935da1e8-a28f-4db4-9f7f-4aedab5fe296" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Security%20Context%20935da1e8a28f4db49f7f4aedab5fe296.html">Security Context</a></figure><figure id="ce63ecef-a7d8-43d3-b478-87c5b260586b" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Resource%20Requirements%20ce63ecefa7d843d3b47887c5b260586b.html">Resource Requirements</a></figure><figure id="7595d992-0278-4e85-a7e1-34deaee6627f" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Taints%20and%20Tolerations%207595d99202784e85a7e134deaee6627f.html">Taints and Tolerations</a></figure><figure id="46d24ffb-dca3-49b9-aa23-0d608549766b" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Node%20Selector%2046d24ffbdca349b9aa230d608549766b.html">Node Selector</a></figure><figure id="49cf0443-5eea-4270-9029-a7fb8bfafeab" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Node%20Affinity%2049cf04435eea42709029a7fb8bfafeab.html">Node Affinity</a></figure><figure id="e2636339-a984-4c45-9888-0b67a5a6e99b" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Combining%20Taints%20&amp;%20Tolerations%20and%20Node%20Affinity%20e2636339a9844c4598880b67a5a6e99b.html">Combining Taints &amp; Tolerations and Node Affinity</a></figure><figure id="898006d8-24a3-4bd8-8629-1703c5030c07" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Controllers%20898006d824a34bd886291703c5030c07.html">Controllers</a></figure><figure id="35a5d89b-8284-4e1d-acbd-652ba178a554" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Multi-Container%20Pods%2035a5d89b82844e1dacbd652ba178a554.html">Multi-Container Pods</a></figure><figure id="095d4afc-17ae-4312-b62e-ff181ca81890" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Deploying%20a%20Production%20grade%20Application%20095d4afc17ae4312b62eff181ca81890.html">Deploying a Production grade Application</a></figure><figure id="c4f25cb8-0f28-4215-be50-229504c0f113" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Blue-Green%20and%20Canary%20Deployments%20c4f25cb80f284215be50229504c0f113.html">Blue-Green and Canary Deployments</a></figure><figure id="9edc8c9e-ff24-41dc-9a48-815306231351" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Kubernetes%20Networking%209edc8c9eff2441dc9a48815306231351.html">Kubernetes Networking</a></figure><figure id="8f90767f-16dd-4d2a-a004-01b1d6a71264" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/DNS%20in%20Kubernetes%208f90767f16dd4d2aa00401b1d6a71264.html">DNS in Kubernetes</a></figure><figure id="a8aebcf0-62e3-480c-9fb3-cbdf1387fde9" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Private%20Container%20Registry%20a8aebcf062e3480c9fb3cbdf1387fde9.html">Private Container Registry</a></figure><figure id="a41d1479-55c5-4493-bbac-acaf6a687fb1" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Multiple%20Schedulers%20a41d147955c54493bbacacaf6a687fb1.html">Multiple Schedulers</a></figure><h1 id="3d63cc30-611c-4159-8b70-8563de91b5b2" class="">Extras</h1><figure id="415b6323-dafa-4cd8-a982-9de7091e188c" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Tips%20415b6323dafa4cd8a9829de7091e188c.html">Tips</a></figure><figure id="661dfb42-b698-48d7-8458-441189be6283" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Internal%20Workings%20661dfb42b69848d78458441189be6283.html">Internal Workings</a></figure><figure id="e946cf66-c6c1-4ffd-86a5-93c0b75c08c1" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/How%20declarative%20commands%20work%20e946cf66c6c14ffd86a593c0b75c08c1.html">How declarative commands work?</a></figure><figure id="046d7b7c-57f9-4052-80ec-128be11d148d" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/CKA%20046d7b7c57f9405280ec128be11d148d.html">CKA</a></figure></div><div id="5947ea57-49df-42bb-bbcc-333b6f5b2a31" style="width:33.33333333333334%" class="column"><h1 id="0a368c26-7dae-438d-8b89-e4294e4ea01b" class="">Observability</h1><figure id="179fb866-eb4b-4b17-a97a-4abe6506d188" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Pod%20Status%20and%20Conditions%20179fb866eb4b4b17a97a4abe6506d188.html">Pod Status and Conditions</a></figure><figure id="81131c56-76f5-40b9-a4b6-c219ce5780bb" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Readiness%20Probes%2081131c5676f540b9a4b6c219ce5780bb.html">Readiness Probes</a></figure><figure id="cbbbecc7-f36a-451a-993b-2e72472af397" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Liveness%20Probes%20cbbbecc7f36a451a993b2e72472af397.html">Liveness Probes</a></figure><figure id="771720f5-5bd4-4c9d-8f6a-3256ccfb0b2e" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Monitoring%20771720f55bd44c9d8f6a3256ccfb0b2e.html">Monitoring</a></figure><figure id="3c86a7cd-575d-4c2d-b682-85a6e7cfb4e8" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Logging%203c86a7cd575d4c2db68285a6e7cfb4e8.html">Logging</a></figure><p id="2ad258ed-784b-40cc-b577-e04880256c98" class="">
+</p><p id="602ae17f-58ef-455a-b9b8-a3151a48ff55" class="">
+</p><p id="c22c0535-b1d7-41d1-a042-e9986be0f2f9" class="">
+</p><p id="e1df5b92-0de9-4102-ac72-9418221fada3" class="">
+</p><p id="b40eb2c7-9c06-43bd-bf3d-70a061e319d2" class="">
+</p><p id="165aaa9c-56b7-47d5-af6a-f3f0595763b4" class="">
+</p><p id="ddd2bd0a-9c64-45ff-9393-feb81b80a4ad" class="">
+</p><p id="67884a90-1f4d-45ee-8473-80d8df551dff" class="">
+</p><p id="b0a3eddf-bb08-4e57-9853-2402a8ad6f4e" class="">
+</p><p id="2d3c9f70-3eae-4139-a4c0-490556be97c9" class="">
+</p><h1 id="1c34e92a-0edd-4f7b-ba08-35e76e6027c1" class="">Control Plane Components</h1><figure id="3677af6b-3d21-410a-bdf1-a92dd41fa3bd" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/KubeAPI%20Server%203677af6b3d21410abdf1a92dd41fa3bd.html">KubeAPI Server</a></figure><figure id="1440dac9-3980-4143-a5ed-423081669207" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/ETCD%201440dac939804143a5ed423081669207.html">ETCD</a></figure><figure id="f12a9cf5-e3da-4a6a-9ff6-c62a4ed0d034" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Kube%20Controller%20Manager%20f12a9cf5e3da4a6a9ff6c62a4ed0d034.html">Kube Controller Manager</a></figure><figure id="93ebb417-100e-4982-947e-667ad0eadb5b" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Kube%20Scheduler%2093ebb417100e4982947e667ad0eadb5b.html">Kube Scheduler</a></figure><figure id="d0ad33a1-374d-46fe-a76c-f7c81620b7ac" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Kubelet%20d0ad33a1374d46fea76cf7c81620b7ac.html">Kubelet</a></figure><figure id="0b056a53-0833-4b77-86ee-91723680e024" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Kube%20Proxy%200b056a5308334b7786ee91723680e024.html">Kube Proxy</a></figure></div><div id="fc617197-0e22-440a-8106-d3bbef8be932" style="width:33.33333333333333%" class="column"><h1 id="e8048127-5ef3-41c4-b108-fc41ba3ea618" class="">Security</h1><figure id="72345292-3e9f-4fd4-9d29-31f9730ec83a" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/KubeConfig%20723452923e9f4fd49d2931f9730ec83a.html">KubeConfig</a></figure><figure id="c41572b8-0e3b-4da6-98c6-3d1c3e46b10e" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Kube%20Rest%20API%20c41572b80e3b4da698c63d1c3e46b10e.html">Kube Rest API</a></figure><figure id="5c8afd2b-354f-4d61-8a46-481898fe8096" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Securing%20Nodes%20and%20Cluster%205c8afd2b354f4d618a46481898fe8096.html">Securing Nodes and Cluster</a></figure><figure id="5ceb24d3-e0a7-4599-b108-454e03c54d0a" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Authentication%205ceb24d3e0a74599b108454e03c54d0a.html">Authentication</a></figure><figure id="dc9a0bf2-0e4a-44b7-902c-37591625a725" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Authorization%20dc9a0bf20e4a44b7902c37591625a725.html">Authorization</a></figure><figure id="d17519e2-2785-4cd0-b148-9a8c40a05109" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Role%20Based%20Access%20Control%20(RBAC)%20d17519e227854cd0b1489a8c40a05109.html">Role Based Access Control (RBAC)</a></figure><figure id="3bd25a63-5a7c-40cd-8583-5779277194d2" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Cluster-wide%20RBAC%203bd25a635a7c40cd85835779277194d2.html">Cluster-wide RBAC</a></figure><figure id="05aab010-56ac-401c-93e1-dfbc5d74e71e" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/How%20Auth%20in%20K8s%20works%2005aab01056ac401c93e1dfbc5d74e71e.html">How Auth in K8s works</a></figure><figure id="5c0f76bb-e193-4634-976c-5e0aea8392a9" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Admission%20Controllers%205c0f76bbe1934634976c5e0aea8392a9.html">Admission Controllers</a></figure><figure id="7528f093-a7ab-4751-97c7-4dd18f4c64e2" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/TLS%20in%20Kubernetes%207528f093a7ab475197c74dd18f4c64e2.html">TLS in Kubernetes</a></figure><p id="b1c4f339-9d6a-4ccc-beae-1e81007b6139" class="">
+</p><p id="aad2c3be-b5c4-4ef9-8faa-7b0c502c93f4" class="">
+</p><p id="45277b5c-cdf9-4c99-9408-7519b5798b10" class="">
+</p><p id="5c564ef5-01f0-4b4b-ac57-3b9fdd880655" class="">
+</p><p id="7e0d5323-76ff-4efb-8376-c7c8a25e233e" class="">
+</p><h1 id="c5f68017-a5b6-460f-a7bf-f9cd4798903f" class="">Admin</h1><figure id="4e5c736f-7edc-41f0-ba87-86aed1c46972" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Unhealthy%20Nodes%204e5c736f7edc41f0ba8786aed1c46972.html">Unhealthy Nodes</a></figure><figure id="00b1f61f-e54e-4f60-b2ee-268a26a0a220" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/OS%20Upgrades%2000b1f61fe54e4f60b2ee268a26a0a220.html">OS Upgrades</a></figure><figure id="9c2346e3-747a-479c-8d70-954077b87554" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Cluster%20Version%20Upgrade%209c2346e3747a479c8d70954077b87554.html">Cluster Version Upgrade</a></figure><figure id="64bf07a7-7e5e-4cd0-a2f9-ff3e769f6b2d" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Backup%20and%20Restore%2064bf07a77e5e4cd0a2f9ff3e769f6b2d.html">Backup and Restore</a></figure><figure id="3234b1a9-a8dd-4465-853f-eb7a679647a9" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Cluster%20Design%203234b1a9a8dd4465853feb7a679647a9.html">Cluster Design</a></figure><figure id="fb9c03e2-a370-4919-8265-4fc9fcf03c19" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Cluster%20Setup%20fb9c03e2a370491982654fc9fcf03c19.html">Cluster Setup</a></figure><figure id="3b498a0d-1655-44c8-9c23-2b2fc268d188" class="link-to-page"><a href="Kubernetes%20Blog%20217da4a2378b4322bbbb370c9f10676d/Rancher%203b498a0d165544c89c232b2fc268d188.html">Rancher</a></figure><p id="b5bdfda3-d5db-4c31-ab90-048dbf3b7cdf" class="">
+</p></div></div><ul id="e635509d-1fba-4d5a-a3d7-d454726fcd8f" class="bulleted-list"><li style="list-style-type:disc">KubeCTL autocomplete: <a href="https://gist.github.com/GusAntoniassi/2f58e716b67f648d13f91c1d780b05bf">Configure autocompletion to kubectl with zsh (github.com)</a></li></ul><p id="3e3476ee-b9a1-49a5-822f-f9e9f3fbf994" class="">
+</p><hr id="fa64728a-fe85-45ca-9398-7ea8e2bc5082"/><p id="e9285747-f6b2-4da0-b51b-39adcd112262" class="">
+</p><p id="cc29c090-fc12-4d8f-b1d4-314e9700d83b" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
