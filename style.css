@@ -442,3 +442,8 @@ footer {
 footer p {
   text-align: center;
 }
+
+/* blog */
+#hide {
+  visibility: hidden;
+}
