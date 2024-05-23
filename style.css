@@ -66,6 +66,10 @@ a:hover {
   cursor: default;
 }
 
+#freelancer-font {
+  font-size: 14px;
+}
+
 /* HAMBURGER MENU */
 
 #hamburger-nav {
